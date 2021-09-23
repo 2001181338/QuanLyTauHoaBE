@@ -27,7 +27,7 @@ namespace QuanLyDuongSat.Controller
         [HttpPost]
         public string PostSinhVien([FromBody] ThemSinhVienModel sinhVien)
         {
-            return "Hello World";
+            return "Hello Sinh Vien Moi";
         }
 
         [Route("api/test/them-giao-vien")]
