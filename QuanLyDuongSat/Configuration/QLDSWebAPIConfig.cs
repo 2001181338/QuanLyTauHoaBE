@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace QuanLyDuongSat.Configuration
 {
@@ -10,9 +11,7 @@ namespace QuanLyDuongSat.Configuration
     {
         public static void Register(HttpConfiguration config)
         {
-            config.EnableCors();
-
-            //Web API routes
+            // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
