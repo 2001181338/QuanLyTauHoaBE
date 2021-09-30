@@ -11,7 +11,6 @@ namespace QuanLyDuongSat.Controller
 {
     public class TestController : ApiController
     {
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IHttpActionResult Get()
         {
             var sv = new ThemSinhVienModel()

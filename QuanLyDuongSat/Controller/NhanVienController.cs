@@ -16,6 +16,15 @@ namespace QuanLyDuongSat.Controller
         [HttpPost]
         public ResponseModel DangNhap(NhanVienDangNhapModel model)
         {
+            if(string.IsNullOrEmpty(model.TaiKhoan) || string.IsNullOrEmpty(model.MatKhau))
+            {
+                return new ResponseModel
+                {
+                    Data = null,
+                    Message = "Vui lòng không để trống",
+                    Status = false
+                };
+            }
             using (QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
             {
                 var nhanVienCheck = db.QuanTris.FirstOrDefault(x => x.TaiKhoan.ToLower().Trim() == model.TaiKhoan.ToLower().Trim() && x.MatKhau.ToLower().Trim() == model.MatKhau.ToLower().Trim());
@@ -36,6 +45,13 @@ namespace QuanLyDuongSat.Controller
                     Status = true
                 };
             }
+        }
+
+        [Route("api/nhanvien/dangnhap/test")]
+        [HttpPost]
+        public string DangNhapTest(NhanVienDangNhapModel model)
+        {
+            return "ABC";
         }
     }
 }
