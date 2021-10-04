@@ -114,6 +114,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\web.config" />
     <Content Include="QuanLyDuongSatDB.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>QuanLyDuongSatDB.designer.cs</LastGenOutput>
@@ -122,10 +126,6 @@
     <None Include="QuanLyDuongSatDB.dbml.layout">
       <DependentUpon>QuanLyDuongSatDB.dbml</DependentUpon>
     </None>
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
