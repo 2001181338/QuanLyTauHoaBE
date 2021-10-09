@@ -15,6 +15,7 @@ namespace QuanLyDuongSat.Model.GaModel
 
     public class GaThemRequestModel
     {
+        public int MaGa { get; set; }
         public string TenGa { get; set; }
         public int MaThanhPhoTinh { get; set; }
     }

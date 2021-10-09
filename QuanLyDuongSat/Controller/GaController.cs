@@ -79,15 +79,14 @@ namespace QuanLyDuongSat.Controller
             }
         }
 
-
         [Route("api/ga/sua-ga")]
-        [HttpPut]
-        public ResponseModel SuaGa([FromUri] int maGa, [FromBody] GaThemRequestModel model)
+        [HttpPost]
+        public ResponseModel SuaGa([FromBody] GaThemRequestModel model)
         {
             using (QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
             {
                 //Check ga existed? false -> error
-                var gaExisted = db.Gas.FirstOrDefault(x => x.MaGa == maGa);
+                var gaExisted = db.Gas.FirstOrDefault(x => x.MaGa == model.MaGa);
                 if (gaExisted == null)
                 {
                     return new ResponseModel()
@@ -100,9 +99,9 @@ namespace QuanLyDuongSat.Controller
 
 
                 //Check tenGa existed? True -> error
-                var gaTenExisted = db.Gas.FirstOrDefault(x => x.MaGa != maGa && x.TenGa.ToLower().Trim() == model.TenGa.ToLower().Trim() && x.MaThanhPhoTinh == model.MaThanhPhoTinh);
+                var gaTenExisted = db.Gas.FirstOrDefault(x => x.MaGa != model.MaGa && x.TenGa.ToLower().Trim() == model.TenGa.ToLower().Trim() && x.MaThanhPhoTinh == model.MaThanhPhoTinh);
 
-                if (gaExisted != null)
+                if (gaTenExisted != null)
                 {
                     return new ResponseModel()
                     {
@@ -133,6 +132,46 @@ namespace QuanLyDuongSat.Controller
                     Data = resData,
                     Status = true,
                     Message = "Sửa thành công"
+                };
+            }
+        }
+
+        [Route("api/ga/xoa-ga")]
+        [HttpPost]
+        public ResponseModel XoaGa(int id)
+        {
+            using (QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
+            {
+                //Check ga existed? false -> error
+                var gaExisted = db.Gas.FirstOrDefault(x => x.MaGa == id);
+                if(gaExisted == null)
+                {
+                    return new ResponseModel()
+                    {
+                        Data = gaExisted.TenGa,
+                        Status = false,
+                        Message = "Ga không tồn tại"
+                    };
+                }
+
+                //Kiểm tra Ga này đang được sử dụng bởi Tuyến không
+                var tuyens = db.Tuyens.FirstOrDefault(x => x.GaDi == id || x.GaDen == id);
+                if (tuyens != null)
+                {
+                    return new ResponseModel()
+                    {
+                        Status = false,
+                        Message = "Ga đang được thiết lập trên Tuyến"
+                    };
+                }
+
+                db.Gas.DeleteOnSubmit(gaExisted);
+                db.SubmitChanges();
+
+                return new ResponseModel()
+                {
+                    Status = true,
+                    Message = "Xóa thành công"
                 };
             }
         }
