@@ -97,8 +97,11 @@
     <Compile Include="Controller\NhanVienController.cs" />
     <Compile Include="Controller\TestController.cs" />
     <Compile Include="Controller\TinhThanhPhoController.cs" />
+    <Compile Include="Controller\TauController.cs" />
     <Compile Include="Controller\TuyenController.cs" />
+    <Compile Include="Controller\ToaController.cs" />
     <Compile Include="Controller\VeController.cs" />
+    <Compile Include="Enumeration\LoaiToaTauEnum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -107,7 +110,9 @@
     <Compile Include="Model\NhanVienModel\NhanVienModel.cs" />
     <Compile Include="Model\ResponseModel\ResponseModel.cs" />
     <Compile Include="Model\SinhVien\ThemSinhVienModel.cs" />
+    <Compile Include="Model\TauModel\TauModel.cs" />
     <Compile Include="Model\TinhThanhPhoModel\TinhThanhPhoModel.cs" />
+    <Compile Include="Model\ToaModel\ToaModel.cs" />
     <Compile Include="Model\TuyenModel\TuyenModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuanLyDuongSatDB.designer.cs">
