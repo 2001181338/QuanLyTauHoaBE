@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyTauHoa" Class="QuanLyDuongSatDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-H5BQAG2\SQLEXPRESS;Initial Catalog=QuanLyTauHoa;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyTauHoaConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-7AEI48K\SQLEXPRESS;Initial Catalog=QuanLyTauHoa;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyTauHoaConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Chuyen" Member="Chuyens">
     <Type Name="Chuyen">
       <Column Name="MaChuyen" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -69,6 +69,7 @@
       <Column Name="GioiTinh" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CMND" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
       <Column Name="SoDT" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="MatKhau" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Association Name="KhachHang_DatVe" Member="DatVes" ThisKey="MaKhach" OtherKey="MaKhach" Type="DatVe" />
     </Type>
   </Table>

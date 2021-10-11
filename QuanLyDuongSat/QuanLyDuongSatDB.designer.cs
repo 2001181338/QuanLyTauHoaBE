@@ -72,7 +72,7 @@ namespace QuanLyDuongSat
     #endregion
 		
 		public QuanLyDuongSatDBDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyTauHoaConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyTauHoaConnectionString1"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -1496,6 +1496,8 @@ namespace QuanLyDuongSat
 		
 		private string _SoDT;
 		
+		private string _MatKhau;
+		
 		private EntitySet<DatVe> _DatVes;
 		
     #region Extensibility Method Definitions
@@ -1514,6 +1516,8 @@ namespace QuanLyDuongSat
     partial void OnCMNDChanged();
     partial void OnSoDTChanging(string value);
     partial void OnSoDTChanged();
+    partial void OnMatKhauChanging(string value);
+    partial void OnMatKhauChanged();
     #endregion
 		
 		public KhachHang()
@@ -1638,6 +1642,26 @@ namespace QuanLyDuongSat
 					this._SoDT = value;
 					this.SendPropertyChanged("SoDT");
 					this.OnSoDTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MatKhau", DbType="NVarChar(100)")]
+		public string MatKhau
+		{
+			get
+			{
+				return this._MatKhau;
+			}
+			set
+			{
+				if ((this._MatKhau != value))
+				{
+					this.OnMatKhauChanging(value);
+					this.SendPropertyChanging();
+					this._MatKhau = value;
+					this.SendPropertyChanged("MatKhau");
+					this.OnMatKhauChanged();
 				}
 			}
 		}
