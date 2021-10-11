@@ -72,7 +72,7 @@ namespace QuanLyDuongSat
     #endregion
 		
 		public QuanLyDuongSatDBDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyTauHoaConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyTauHoaConnectionString1"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -2289,13 +2289,13 @@ namespace QuanLyDuongSat
 		
 		private int _MaToa;
 		
-		private System.Nullable<int> _TenToa;
-		
 		private System.Nullable<int> _SoLuong;
 		
 		private System.Nullable<int> _MaTau;
 		
 		private System.Nullable<int> _LoaiCho;
+		
+		private string _TenToa;
 		
 		private EntitySet<Ghe> _Ghes;
 		
@@ -2307,14 +2307,14 @@ namespace QuanLyDuongSat
     partial void OnCreated();
     partial void OnMaToaChanging(int value);
     partial void OnMaToaChanged();
-    partial void OnTenToaChanging(System.Nullable<int> value);
-    partial void OnTenToaChanged();
     partial void OnSoLuongChanging(System.Nullable<int> value);
     partial void OnSoLuongChanged();
     partial void OnMaTauChanging(System.Nullable<int> value);
     partial void OnMaTauChanged();
     partial void OnLoaiChoChanging(System.Nullable<int> value);
     partial void OnLoaiChoChanged();
+    partial void OnTenToaChanging(string value);
+    partial void OnTenToaChanged();
     #endregion
 		
 		public Toa()
@@ -2340,26 +2340,6 @@ namespace QuanLyDuongSat
 					this._MaToa = value;
 					this.SendPropertyChanged("MaToa");
 					this.OnMaToaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenToa", DbType="Int")]
-		public System.Nullable<int> TenToa
-		{
-			get
-			{
-				return this._TenToa;
-			}
-			set
-			{
-				if ((this._TenToa != value))
-				{
-					this.OnTenToaChanging(value);
-					this.SendPropertyChanging();
-					this._TenToa = value;
-					this.SendPropertyChanged("TenToa");
-					this.OnTenToaChanged();
 				}
 			}
 		}
@@ -2424,6 +2404,26 @@ namespace QuanLyDuongSat
 					this._LoaiCho = value;
 					this.SendPropertyChanged("LoaiCho");
 					this.OnLoaiChoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenToa", DbType="NVarChar(50)")]
+		public string TenToa
+		{
+			get
+			{
+				return this._TenToa;
+			}
+			set
+			{
+				if ((this._TenToa != value))
+				{
+					this.OnTenToaChanging(value);
+					this.SendPropertyChanging();
+					this._TenToa = value;
+					this.SendPropertyChanged("TenToa");
+					this.OnTenToaChanged();
 				}
 			}
 		}
