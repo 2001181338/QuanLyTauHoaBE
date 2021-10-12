@@ -32,4 +32,10 @@ namespace QuanLyDuongSat.Model.TuyenModel
         public int? MaTuyenCha { get; set; }
     }
 
+    public class TuyenModel
+    {
+        public int MaGaDi { get; set; }
+        public int MaGaDen { get; set; }
+        public DateTime NgayKhoiHanh { get; set; }
+    }
 }

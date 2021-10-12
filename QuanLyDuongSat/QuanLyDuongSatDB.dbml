@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyTauHoa" Class="QuanLyDuongSatDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-7QH1ARS;Initial Catalog=QuanLyTauHoa;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyTauHoaConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-H5BQAG2\SQLEXPRESS;Initial Catalog=QuanLyTauHoa;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyTauHoaConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Chuyen" Member="Chuyens">
     <Type Name="Chuyen">
       <Column Name="MaChuyen" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -16,7 +16,9 @@
       <Column Name="MaLoaiVe" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TrangThaiVe" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="NgayBanVe" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MaGhe" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="DatVe_Ve" Member="DatVe" ThisKey="MaDatVe" OtherKey="MaDatVe" Type="DatVe" IsForeignKey="true" />
+      <Association Name="Ghe_Ve" Member="Ghe" ThisKey="MaGhe" OtherKey="MaGhe" Type="Ghe" IsForeignKey="true" />
       <Association Name="LoaiVe_Ve" Member="LoaiVe" ThisKey="MaLoaiVe" OtherKey="MaLoaiVe" Type="LoaiVe" IsForeignKey="true" />
     </Type>
   </Table>
@@ -38,6 +40,7 @@
       <Column Name="NgayDat" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ThanhTien" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="SoLuongVeDat" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrangThai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="DatVe_Ve" Member="Ves" ThisKey="MaDatVe" OtherKey="MaDatVe" Type="Ve" />
       <Association Name="KhachHang_DatVe" Member="KhachHang" ThisKey="MaKhach" OtherKey="MaKhach" Type="KhachHang" IsForeignKey="true" />
     </Type>
@@ -58,6 +61,7 @@
       <Column Name="TenGhe" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="DaXoa" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="MaToa" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Ghe_Ve" Member="Ves" ThisKey="MaGhe" OtherKey="MaGhe" Type="Ve" />
       <Association Name="Toa_Ghe" Member="Toa" ThisKey="MaToa" OtherKey="MaToa" Type="Toa" IsForeignKey="true" />
     </Type>
   </Table>
@@ -69,6 +73,7 @@
       <Column Name="GioiTinh" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CMND" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
       <Column Name="SoDT" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="MatKhau" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="KhachHang_DatVe" Member="DatVes" ThisKey="MaKhach" OtherKey="MaKhach" Type="DatVe" />
     </Type>
   </Table>
@@ -108,7 +113,6 @@
   <Table Name="dbo.Toa" Member="Toas">
     <Type Name="Toa">
       <Column Name="MaToa" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="SoLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="MaTau" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="LoaiCho" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TenToa" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
