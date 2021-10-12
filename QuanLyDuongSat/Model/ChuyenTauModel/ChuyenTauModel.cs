@@ -13,7 +13,7 @@ namespace QuanLyDuongSat.Model.ChuyenTauModel
         public string TenTau { get; set; }
         public string NgayKhoiHanh { get; set; }
         public string GioKhoiHanh { get; set; }
-        public double VeTapThe { get; set; }
-        public double VeCaNhan { get; set; }
+        public double GiaVeNgoi { get; set; }
+        public double GiaVeNam { get; set; }
     }
 }
