@@ -10,80 +10,218 @@ using System.Web.Http;
 
 namespace QuanLyDuongSat.Controller
 {
+    [RoutePrefix("api/tuyen")]
     public class TuyenController : ApiController
     {
-        [Route("api/tuyen/timtuyen")]
-        [HttpPost]
-        public ResponseModel TimTuyen(TuyenModel model)
+        [Route("get-all")]
+        [HttpGet]
+        public ResponseModel GetAll()
         {
             using (QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
             {
-                var tuyen = db.Tuyens.FirstOrDefault(x => x.GaDi == model.MaGaDi && x.GaDen == model.MaGaDen);
-                if (tuyen == null)
+                var tuyens = from tuyen in db.Tuyens
+                             join gaDi in db.Gas on tuyen.GaDi equals gaDi.MaGa
+                             join gaDen in db.Gas on tuyen.GaDen equals gaDen.MaGa
+                             join tinhGadi in db.ThanhPho_Tinhs on gaDi.MaThanhPhoTinh equals tinhGadi.MaThanhPhoTinh
+                             join tinhGaden in db.ThanhPho_Tinhs on gaDen.MaThanhPhoTinh equals tinhGaden.MaThanhPhoTinh
+                             select new TuyenGetAllModel
+                             {
+                                 MaTuyen = tuyen.MaTuyen,
+                                 MaGaDi = gaDi.MaGa,
+                                 MaGaDen = gaDen.MaGa,
+                                 TenGaDi = gaDi.TenGa,
+                                 TenGaDen = gaDen.TenGa,
+                                 MaTuyenCha = tuyen.TuyenCha,
+                                 TenTinhGaDi = tinhGadi.TenThanhPhoTinh,
+                                 TenTinhGaDen = tinhGaden.TenThanhPhoTinh
+                             };
+                return new ResponseModel()
                 {
-                    return new ResponseModel
-                    {
-                        Data = null,
-                        Message = "Không có tuyến đường này!",
-                        Status = false
-                    };
-                }
+                    Data = tuyens.ToList(),
+                    Status = true
+                };
+            }
+        }
 
-                var chuyens = db.Chuyens.Where(x => x.MaTuyen == tuyen.MaTuyen).ToList();
-                if (!chuyens.Any())
-                {
-                    return new ResponseModel
-                    {
-                        Data = null,
-                        Message = "Không có chuyến nào chạy trên tuyến đường này!",
-                        Status = false
-                    };
-                }
-
-                var allChuyenTau = db.ChuyenTaus.ToList();
-                var chuyenTaus = allChuyenTau.Where(x => chuyens.Any(y => y.MaChuyen == x.MaChuyen) &&
-                (x.NgayKhoiHanh.Value.Day == model.NgayKhoiHanh.Day && x.NgayKhoiHanh.Value.Month == model.NgayKhoiHanh.Month &&
-                x.NgayKhoiHanh.Value.Year == model.NgayKhoiHanh.Year)).ToList();
-                if (!chuyenTaus.Any())
-                {
-                    return new ResponseModel
-                    {
-                        Data = null,
-                        Message = "Không có chuyến tàu nào chạy trong ngày này!",
-                        Status = false
-                    };
-                }
-
-                var allTau = db.Taus.ToList();
+        [Route("them-tuyen")]
+        [HttpPost]
+        public ResponseModel ThemTuyen(TuyenThemModel model)
+        {
+            using (QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
+            {
                 var gaDi = db.Gas.FirstOrDefault(x => x.MaGa == model.MaGaDi);
                 var gaDen = db.Gas.FirstOrDefault(x => x.MaGa == model.MaGaDen);
+                var tuyenCha = db.Tuyens.FirstOrDefault(x => x.MaTuyen == model.MaTuyenCha);
 
-                var listChuyenTau = new List<ChuyenTauModel>();
-
-                var loaiVes = db.LoaiVes.ToList();
-
-                foreach (var chuyenTau in chuyenTaus)
+                if (gaDi == null)
                 {
-                    var chuyenTauModel = new ChuyenTauModel()
+                    return new ResponseModel()
                     {
-                        MaChuyenTau = chuyenTau.MaChuyenTau,
-                        GaDi = gaDi.TenGa,
-                        GaDen = gaDen.TenGa,
-                        GioKhoiHanh = chuyens.FirstOrDefault(x => x.MaChuyen == chuyenTau.MaChuyen)?.GioKhoiHanh,
-                        NgayKhoiHanh = chuyenTau.NgayKhoiHanh.ToString(),
-                        TenTau = allTau.FirstOrDefault(x => x.MaTau == chuyenTau.MaTau)?.TenTau,
-                        VeTapThe = loaiVes.FirstOrDefault(x => x.MaChuyenTau == chuyenTau.MaChuyenTau && x.LoaiVe1 == 1).GiaVe ?? 0,
-                        VeCaNhan = loaiVes.FirstOrDefault(x => x.MaChuyenTau == chuyenTau.MaChuyenTau && x.LoaiVe1 == 2).GiaVe ?? 0
+                        Status = false,
+                        Message = "Ga đi không tồn tại"
                     };
-
-                    listChuyenTau.Add(chuyenTauModel);
                 }
 
-                return new ResponseModel
+                if (gaDen == null)
                 {
-                    Data = listChuyenTau,
-                    Message = "Có chuyến tàu cần tìm",
-                    Status = true
+                    return new ResponseModel()
+                    {
+                        Status = false,
+                        Message = "Ga đến không tồn tại"
+                    };
+                }
+
+                if (model.MaTuyenCha != null && tuyenCha == null)
+                {
+                    return new ResponseModel()
+                    {
+                        Status = false,
+                        Message = "Tuyến cha không tồn tại"
+                    };
+                }
+
+                var tuyen = db.Tuyens.FirstOrDefault(x => x.GaDi == model.MaGaDi && x.GaDen == model.MaGaDen);
+                if (tuyen != null)
+                {
+                    return new ResponseModel()
+                    {
+                        Status = false,
+                        Message = "Tuyến này đã tồn tại"
+                    };
+                }
+
+                var newTuyen = new Tuyen()
+                {
+                    GaDi = model.MaGaDi,
+                    GaDen = model.MaGaDen,
+                    TuyenCha = model.MaTuyenCha
+                };
+
+                db.Tuyens.InsertOnSubmit(newTuyen);
+                db.SubmitChanges();
+
+                return new ResponseModel()
+                {
+                    Status = true,
+                    Message = "Thêm thành công"
+                };
+            }
+        }
+
+        [Route("sua-tuyen")]
+        [HttpPost]
+        public ResponseModel SuaTuyen(TuyenSuaModel model)
+        {
+            using (QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
+            {
+                var gaDi = db.Gas.FirstOrDefault(x => x.MaGa == model.MaGaDi);
+                var gaDen = db.Gas.FirstOrDefault(x => x.MaGa == model.MaGaDen);
+                var tuyenCha = db.Tuyens.FirstOrDefault(x => x.MaTuyen == model.MaTuyenCha);
+
+                if (gaDi == null)
+                {
+                    return new ResponseModel()
+                    {
+                        Status = false,
+                        Message = "Ga đi không tồn tại"
+                    };
+                }
+
+                if (gaDen == null)
+                {
+                    return new ResponseModel()
+                    {
+                        Status = false,
+                        Message = "Ga đến không tồn tại"
+                    };
+                }
+
+                if (model.MaTuyenCha != null && tuyenCha == null)
+                {
+                    return new ResponseModel()
+                    {
+                        Status = false,
+                        Message = "Tuyến cha không tồn tại"
+                    };
+                }
+
+                var currentTuyen = db.Tuyens.FirstOrDefault(x => x.MaTuyen == model.MaTuyen);
+                if (currentTuyen == null)
+                {
+                    return new ResponseModel()
+                    {
+                        Status = false,
+                        Message = "Tuyến này không tồn tại"
+                    };
+                }
+
+                var tuyen = db.Tuyens.FirstOrDefault(x => x.GaDi == model.MaGaDi && x.GaDen == model.MaGaDen);
+                if (tuyen != null && tuyen.MaTuyen != model.MaTuyen)
+                {
+                    return new ResponseModel()
+                    {
+                        Status = false,
+                        Message = "Tuyến này đã tồn tại"
+                    };
+                }
+
+                currentTuyen.GaDi = model.MaGaDi;
+                currentTuyen.GaDen = model.MaGaDen;
+                currentTuyen.TuyenCha = model.MaTuyenCha;
+
+                db.SubmitChanges();
+
+                return new ResponseModel()
+                {
+                    Status = true,
+                    Message = "Sửa thành công",
+                    Data = new TuyenGetAllModel()
+                    {
+                        MaTuyen = currentTuyen.MaTuyen,
+                        MaGaDi = gaDi.MaGa,
+                        TenGaDi = gaDi.TenGa,
+                        MaGaDen = gaDen.MaGa,
+                        TenGaDen = gaDen.TenGa,
+                        MaTuyenCha = currentTuyen.TuyenCha
+                    }
+                };
+            }
+        }
+
+        [Route("xoa-tuyen")]
+        [HttpPost]
+        public ResponseModel XoaTuyen(int id)
+        {
+            using (QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
+            {
+                var tuyen = db.Tuyens.FirstOrDefault(x => x.MaTuyen == id);
+                if(tuyen == null)
+                {
+                    return new ResponseModel()
+                    {
+                        Status = false,
+                        Message = "Tuyến này không tồn tại"
+                    };
+                }
+
+                //Kiem tra tuyen nay co dang duoc su dung khong
+                var chuyens = db.Chuyens.FirstOrDefault(x => x.MaTuyen == tuyen.MaTuyen);
+                if(chuyens != null)
+                {
+                    return new ResponseModel()
+                    {
+                        Status = false,
+                        Message = "Tuyến này đang được thiết lập trên Chuyến"
+                    };
+                }
+
+                db.Tuyens.DeleteOnSubmit(tuyen);
+                db.SubmitChanges();
+
+                return new ResponseModel()
+                {
+                    Status = true,
+                    Message = "Xóa thành công"
                 };
             }
         }
