@@ -94,8 +94,10 @@
     <Compile Include="Configuration\QLDSWebAPIConfig.cs" />
     <Compile Include="Controller\ChuyenController.cs" />
     <Compile Include="Controller\GaController.cs" />
+    <Compile Include="Controller\KhachHangController.cs" />
     <Compile Include="Controller\NhanVienController.cs" />
     <Compile Include="Controller\TestController.cs" />
+    <Compile Include="Controller\ThongTinDatVeController.cs" />
     <Compile Include="Controller\TinhThanhPhoController.cs" />
     <Compile Include="Controller\TauController.cs" />
     <Compile Include="Controller\TuyenController.cs" />
@@ -106,14 +108,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Model\ChuyenModel\ChuyenModel.cs" />
+    <Compile Include="Model\ChuyenTauModel\ChuyenTauModel.cs" />
     <Compile Include="Model\GaModel\GaModel.cs" />
+    <Compile Include="Model\KhachHangModel\KhachHangModel.cs" />
     <Compile Include="Model\NhanVienModel\NhanVienModel.cs" />
     <Compile Include="Model\ResponseModel\ResponseModel.cs" />
     <Compile Include="Model\SinhVien\ThemSinhVienModel.cs" />
     <Compile Include="Model\TauModel\TauModel.cs" />
+    <Compile Include="Model\ThongTinDatVeModel\ThongTinDatVeModel.cs" />
     <Compile Include="Model\TinhThanhPhoModel\TinhThanhPhoModel.cs" />
     <Compile Include="Model\ToaModel\ToaModel.cs" />
     <Compile Include="Model\TuyenModel\TuyenModel.cs" />
+    <Compile Include="Model\VeModel\VeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuanLyDuongSatDB.designer.cs">
       <AutoGen>True</AutoGen>
@@ -147,7 +153,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Model\VeModel\" />
     <Folder Include="Views\NhanVien\" />
   </ItemGroup>
   <PropertyGroup>
