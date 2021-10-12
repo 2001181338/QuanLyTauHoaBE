@@ -72,7 +72,7 @@ namespace QuanLyDuongSat
     #endregion
 		
 		public QuanLyDuongSatDBDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyTauHoaConnectionString1"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyTauHoaConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -401,7 +401,11 @@ namespace QuanLyDuongSat
 		
 		private System.Nullable<System.DateTime> _NgayBanVe;
 		
+		private System.Nullable<int> _MaGhe;
+		
 		private EntityRef<DatVe> _DatVe;
+		
+		private EntityRef<Ghe> _Ghe;
 		
 		private EntityRef<LoaiVe> _LoaiVe;
 		
@@ -419,11 +423,14 @@ namespace QuanLyDuongSat
     partial void OnTrangThaiVeChanged();
     partial void OnNgayBanVeChanging(System.Nullable<System.DateTime> value);
     partial void OnNgayBanVeChanged();
+    partial void OnMaGheChanging(System.Nullable<int> value);
+    partial void OnMaGheChanged();
     #endregion
 		
 		public Ve()
 		{
 			this._DatVe = default(EntityRef<DatVe>);
+			this._Ghe = default(EntityRef<Ghe>);
 			this._LoaiVe = default(EntityRef<LoaiVe>);
 			OnCreated();
 		}
@@ -536,6 +543,30 @@ namespace QuanLyDuongSat
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaGhe", DbType="Int")]
+		public System.Nullable<int> MaGhe
+		{
+			get
+			{
+				return this._MaGhe;
+			}
+			set
+			{
+				if ((this._MaGhe != value))
+				{
+					if (this._Ghe.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMaGheChanging(value);
+					this.SendPropertyChanging();
+					this._MaGhe = value;
+					this.SendPropertyChanged("MaGhe");
+					this.OnMaGheChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DatVe_Ve", Storage="_DatVe", ThisKey="MaDatVe", OtherKey="MaDatVe", IsForeignKey=true)]
 		public DatVe DatVe
 		{
@@ -566,6 +597,40 @@ namespace QuanLyDuongSat
 						this._MaDatVe = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("DatVe");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ghe_Ve", Storage="_Ghe", ThisKey="MaGhe", OtherKey="MaGhe", IsForeignKey=true)]
+		public Ghe Ghe
+		{
+			get
+			{
+				return this._Ghe.Entity;
+			}
+			set
+			{
+				Ghe previousValue = this._Ghe.Entity;
+				if (((previousValue != value) 
+							|| (this._Ghe.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Ghe.Entity = null;
+						previousValue.Ves.Remove(this);
+					}
+					this._Ghe.Entity = value;
+					if ((value != null))
+					{
+						value.Ves.Add(this);
+						this._MaGhe = value.MaGhe;
+					}
+					else
+					{
+						this._MaGhe = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Ghe");
 				}
 			}
 		}
@@ -885,6 +950,8 @@ namespace QuanLyDuongSat
 		
 		private System.Nullable<int> _SoLuongVeDat;
 		
+		private System.Nullable<int> _TrangThai;
+		
 		private EntitySet<Ve> _Ves;
 		
 		private EntityRef<KhachHang> _KhachHang;
@@ -903,6 +970,8 @@ namespace QuanLyDuongSat
     partial void OnThanhTienChanged();
     partial void OnSoLuongVeDatChanging(System.Nullable<int> value);
     partial void OnSoLuongVeDatChanged();
+    partial void OnTrangThaiChanging(System.Nullable<int> value);
+    partial void OnTrangThaiChanged();
     #endregion
 		
 		public DatVe()
@@ -1012,6 +1081,26 @@ namespace QuanLyDuongSat
 					this._SoLuongVeDat = value;
 					this.SendPropertyChanged("SoLuongVeDat");
 					this.OnSoLuongVeDatChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrangThai", DbType="Int")]
+		public System.Nullable<int> TrangThai
+		{
+			get
+			{
+				return this._TrangThai;
+			}
+			set
+			{
+				if ((this._TrangThai != value))
+				{
+					this.OnTrangThaiChanging(value);
+					this.SendPropertyChanging();
+					this._TrangThai = value;
+					this.SendPropertyChanged("TrangThai");
+					this.OnTrangThaiChanged();
 				}
 			}
 		}
@@ -1317,6 +1406,8 @@ namespace QuanLyDuongSat
 		
 		private System.Nullable<int> _MaToa;
 		
+		private EntitySet<Ve> _Ves;
+		
 		private EntityRef<Toa> _Toa;
 		
     #region Extensibility Method Definitions
@@ -1335,6 +1426,7 @@ namespace QuanLyDuongSat
 		
 		public Ghe()
 		{
+			this._Ves = new EntitySet<Ve>(new Action<Ve>(this.attach_Ves), new Action<Ve>(this.detach_Ves));
 			this._Toa = default(EntityRef<Toa>);
 			OnCreated();
 		}
@@ -1423,6 +1515,19 @@ namespace QuanLyDuongSat
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ghe_Ve", Storage="_Ves", ThisKey="MaGhe", OtherKey="MaGhe")]
+		public EntitySet<Ve> Ves
+		{
+			get
+			{
+				return this._Ves;
+			}
+			set
+			{
+				this._Ves.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Toa_Ghe", Storage="_Toa", ThisKey="MaToa", OtherKey="MaToa", IsForeignKey=true)]
 		public Toa Toa
 		{
@@ -1476,6 +1581,18 @@ namespace QuanLyDuongSat
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_Ves(Ve entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ghe = this;
+		}
+		
+		private void detach_Ves(Ve entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ghe = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.KhachHang")]
@@ -1496,6 +1613,8 @@ namespace QuanLyDuongSat
 		
 		private string _SoDT;
 		
+		private string _MatKhau;
+		
 		private EntitySet<DatVe> _DatVes;
 		
     #region Extensibility Method Definitions
@@ -1514,6 +1633,8 @@ namespace QuanLyDuongSat
     partial void OnCMNDChanged();
     partial void OnSoDTChanging(string value);
     partial void OnSoDTChanged();
+    partial void OnMatKhauChanging(string value);
+    partial void OnMatKhauChanged();
     #endregion
 		
 		public KhachHang()
@@ -1638,6 +1759,26 @@ namespace QuanLyDuongSat
 					this._SoDT = value;
 					this.SendPropertyChanged("SoDT");
 					this.OnSoDTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MatKhau", DbType="NVarChar(50)")]
+		public string MatKhau
+		{
+			get
+			{
+				return this._MatKhau;
+			}
+			set
+			{
+				if ((this._MatKhau != value))
+				{
+					this.OnMatKhauChanging(value);
+					this.SendPropertyChanging();
+					this._MatKhau = value;
+					this.SendPropertyChanged("MatKhau");
+					this.OnMatKhauChanged();
 				}
 			}
 		}
@@ -2289,8 +2430,6 @@ namespace QuanLyDuongSat
 		
 		private int _MaToa;
 		
-		private System.Nullable<int> _SoLuong;
-		
 		private System.Nullable<int> _MaTau;
 		
 		private System.Nullable<int> _LoaiCho;
@@ -2307,8 +2446,6 @@ namespace QuanLyDuongSat
     partial void OnCreated();
     partial void OnMaToaChanging(int value);
     partial void OnMaToaChanged();
-    partial void OnSoLuongChanging(System.Nullable<int> value);
-    partial void OnSoLuongChanged();
     partial void OnMaTauChanging(System.Nullable<int> value);
     partial void OnMaTauChanged();
     partial void OnLoaiChoChanging(System.Nullable<int> value);
@@ -2340,26 +2477,6 @@ namespace QuanLyDuongSat
 					this._MaToa = value;
 					this.SendPropertyChanged("MaToa");
 					this.OnMaToaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuong", DbType="Int")]
-		public System.Nullable<int> SoLuong
-		{
-			get
-			{
-				return this._SoLuong;
-			}
-			set
-			{
-				if ((this._SoLuong != value))
-				{
-					this.OnSoLuongChanging(value);
-					this.SendPropertyChanging();
-					this._SoLuong = value;
-					this.SendPropertyChanged("SoLuong");
-					this.OnSoLuongChanged();
 				}
 			}
 		}
