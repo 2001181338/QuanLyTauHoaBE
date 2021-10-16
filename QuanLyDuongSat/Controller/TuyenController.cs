@@ -1,5 +1,7 @@
-﻿using QuanLyDuongSat.Model.ChuyenTauModel;
+﻿using QuanLyDuongSat.Enumeration;
+using QuanLyDuongSat.Model.ChuyenTauModel;
 using QuanLyDuongSat.Model.ResponseModel;
+using QuanLyDuongSat.Model.ToaModel;
 using QuanLyDuongSat.Model.TuyenModel;
 using System;
 using System.Collections.Generic;
@@ -271,23 +273,37 @@ namespace QuanLyDuongSat.Controller
                 var allTau = db.Taus.ToList();
                 var gaDi = db.Gas.FirstOrDefault(x => x.MaGa == model.MaGaDi);
                 var gaDen = db.Gas.FirstOrDefault(x => x.MaGa == model.MaGaDen);
+                var danhSachToa = db.Toas.ToList();
 
                 var listChuyenTau = new List<ChuyenTauModel>();
 
                 var loaiVes = db.LoaiVes.ToList();
+             
 
                 foreach (var chuyenTau in chuyenTaus)
                 {
+                    var chuyen = chuyens.FirstOrDefault(x => x.MaChuyen == chuyenTau.MaChuyen);
+                    var sNgayKhoiHanh = chuyenTau.NgayKhoiHanh.ToString().Substring(0, 10) + " " + chuyen.GioKhoiHanh;
+                    var ngayKhoiHanh = DateTime.Parse(sNgayKhoiHanh);
+                    var gioConvertSeconds = (ngayKhoiHanh - DateTime.Now).TotalSeconds;
+
                     var chuyenTauModel = new ChuyenTauModel()
                     {
                         MaChuyenTau = chuyenTau.MaChuyenTau,
                         GaDi = gaDi.TenGa,
                         GaDen = gaDen.TenGa,
-                        GioKhoiHanh = chuyens.FirstOrDefault(x => x.MaChuyen == chuyenTau.MaChuyen)?.GioKhoiHanh,
-                        NgayKhoiHanh = chuyenTau.NgayKhoiHanh.ToString(),
+                        GioKhoiHanh = chuyen?.GioKhoiHanh,
+                        NgayKhoiHanh = chuyenTau?.NgayKhoiHanh.ToString(),
                         TenTau = allTau.FirstOrDefault(x => x.MaTau == chuyenTau.MaTau)?.TenTau,
-                        GiaVeNgoi = loaiVes.FirstOrDefault(x => x.MaChuyenTau == chuyenTau.MaChuyenTau && x.LoaiVe1 == 1).GiaVe ?? 0,
-                        GiaVeNam = loaiVes.FirstOrDefault(x => x.MaChuyenTau == chuyenTau.MaChuyenTau && x.LoaiVe1 == 2).GiaVe ?? 0
+                        GiaVeNgoi = loaiVes.FirstOrDefault(x => x.MaChuyenTau == chuyenTau.MaChuyenTau && x.LoaiVe1 == 2).GiaVe ?? 0,
+                        GiaVeNam = loaiVes.FirstOrDefault(x => x.MaChuyenTau == chuyenTau.MaChuyenTau && x.LoaiVe1 == 1).GiaVe ?? 0,
+                        Toas = danhSachToa.Where(x => x.MaTau == chuyenTau.MaTau).Select(y => new ToaTimChuyenTauModel()
+                        {
+                            MaToa = y.MaToa,
+                            TenToa = y.TenToa,
+                            LoaiToa = (LoaiToaTauEnum)y.LoaiCho
+                        }).OrderBy(z => z.TenToa).ToList(),
+                        HetHan = gioConvertSeconds < 86400
                     };
 
                     listChuyenTau.Add(chuyenTauModel);

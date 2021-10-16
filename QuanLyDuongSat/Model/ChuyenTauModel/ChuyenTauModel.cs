@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLyDuongSat.Model.ToaModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,5 +16,7 @@ namespace QuanLyDuongSat.Model.ChuyenTauModel
         public string GioKhoiHanh { get; set; }
         public double GiaVeNgoi { get; set; }
         public double GiaVeNam { get; set; }
+        public bool HetHan { get; set; }
+        public List<ToaTimChuyenTauModel> Toas { get; set; }
     }
 }

@@ -22,4 +22,13 @@ namespace QuanLyDuongSat.Model.KhachHangModel
         public string HoTen { get; set; }
         public string SoDT { get; set; }
     }
+
+    public class KhachHangDatVeModel
+    {
+        public int MaLoaiVe { get; set; }
+        public int MaGhe { get; set; }
+        public string HoTen { get; set; }
+        public string CMND { get; set; }
+        public string SoDT { get; set; }
+    }
 }

@@ -104,12 +104,14 @@
     <Compile Include="Controller\ToaController.cs" />
     <Compile Include="Controller\VeController.cs" />
     <Compile Include="Enumeration\LoaiToaTauEnum.cs" />
+    <Compile Include="Enumeration\TrangThaiVeEnum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Model\ChuyenModel\ChuyenModel.cs" />
     <Compile Include="Model\ChuyenTauModel\ChuyenTauModel.cs" />
     <Compile Include="Model\GaModel\GaModel.cs" />
+    <Compile Include="Model\GheModel\GetGeByToaModel.cs" />
     <Compile Include="Model\KhachHangModel\KhachHangModel.cs" />
     <Compile Include="Model\NhanVienModel\NhanVienModel.cs" />
     <Compile Include="Model\ResponseModel\ResponseModel.cs" />

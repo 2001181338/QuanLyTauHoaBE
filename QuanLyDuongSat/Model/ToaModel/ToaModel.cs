@@ -33,4 +33,11 @@ namespace QuanLyDuongSat.Model.ToaModel
         public LoaiToaTauEnum LoaiToa { get; set; }
         public int SoLuongGhe { get; set; }
     }
+
+    public class ToaTimChuyenTauModel
+    {
+        public int MaToa { get; set; }
+        public string TenToa { get; set; }
+        public LoaiToaTauEnum LoaiToa { get; set; }
+    }
 }
