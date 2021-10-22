@@ -284,7 +284,7 @@ namespace QuanLyDuongSat.Controller
                         GaDi = gaDi.TenGa,
                         GaDen = gaDen.TenGa,
                         GioKhoiHanh = chuyens.FirstOrDefault(x => x.MaChuyen == chuyenTau.MaChuyen)?.GioKhoiHanh,
-                        NgayKhoiHanh = chuyenTau.NgayKhoiHanh.ToString(),
+                        NgayKhoiHanh = chuyenTau.NgayKhoiHanh,
                         TenTau = allTau.FirstOrDefault(x => x.MaTau == chuyenTau.MaTau)?.TenTau,
                         GiaVeNgoi = loaiVes.FirstOrDefault(x => x.MaChuyenTau == chuyenTau.MaChuyenTau && x.LoaiVe1 == 1).GiaVe ?? 0,
                         GiaVeNam = loaiVes.FirstOrDefault(x => x.MaChuyenTau == chuyenTau.MaChuyenTau && x.LoaiVe1 == 2).GiaVe ?? 0

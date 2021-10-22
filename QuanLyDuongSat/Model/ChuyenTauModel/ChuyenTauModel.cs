@@ -11,9 +11,16 @@ namespace QuanLyDuongSat.Model.ChuyenTauModel
         public string GaDi { get; set; }
         public string GaDen { get; set; }
         public string TenTau { get; set; }
-        public string NgayKhoiHanh { get; set; }
+        public DateTime? NgayKhoiHanh { get; set; }
         public string GioKhoiHanh { get; set; }
         public double GiaVeNgoi { get; set; }
         public double GiaVeNam { get; set; }
+    }
+
+    public class ChuyenTauTraVeModel
+    {
+        public int MaChuyenTau { get; set; }
+        public DateTime NgayKhoiHanh { get; set; }
+        public string GioKhoiHanh { get; set; }
     }
 }
