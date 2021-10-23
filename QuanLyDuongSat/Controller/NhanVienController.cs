@@ -1,4 +1,6 @@
-﻿using QuanLyDuongSat.Model.NhanVienModel;
+﻿using QuanLyDuongSat.Enumeration;
+using QuanLyDuongSat.GlobalVariable;
+using QuanLyDuongSat.Model.NhanVienModel;
 using QuanLyDuongSat.Model.ResponseModel;
 using System;
 using System.Collections.Generic;
@@ -10,9 +12,10 @@ using System.Web.Http.Cors;
 
 namespace QuanLyDuongSat.Controller
 {
+    [RoutePrefix("api/nhanvien")]
     public class NhanVienController : ApiController
     {
-        [Route("api/nhanvien/dangnhap")]
+        [Route("dangnhap")]
         [HttpPost]
         public ResponseModel DangNhap(NhanVienDangNhapModel model)
         {
@@ -38,6 +41,8 @@ namespace QuanLyDuongSat.Controller
                     };
                 }
 
+                TaiKhoanDangNhap.TaiKhoan = nhanVienCheck.TaiKhoan;
+
                 return new ResponseModel
                 {
                     Data = model,
@@ -46,12 +51,43 @@ namespace QuanLyDuongSat.Controller
                 };
             }
         }
-
-        [Route("api/nhanvien/dangnhap/test")]
-        [HttpPost]
-        public string DangNhapTest(NhanVienDangNhapModel model)
+      
+        [Route("dashboard")]
+        [HttpGet]
+        public ResponseModel GetInfoDashBoard()
         {
-            return "ABC";
+            using(QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
+            {
+                var veDaThanhToan = db.Ves.Where(x => x.TrangThai == (int)TrangThaiVeEnum.DaThanhToan).ToList();
+                var VeDaTinhPhi = db.Ves.Where(x => x.PhiTraVe != null && x.PhiTraVe != 0).ToList();
+                var loaiVes = db.LoaiVes.ToList();
+
+                double doanhThu = 0;
+                foreach (var ve in veDaThanhToan)
+                {
+                    var loaiVe = loaiVes.FirstOrDefault(x => x.MaLoaiVe == ve.MaLoaiVe);
+                    if(loaiVe != null)
+                    {
+                        doanhThu += loaiVe.GiaVe ?? 0;
+                    }
+                }
+
+                doanhThu += VeDaTinhPhi.Sum(x => x.PhiTraVe) ?? 0;
+                
+                var res = new NhanVienDashBoardModel()
+                {
+                    SoLuongTau = db.Taus.Count(),
+                    TongSoGa = db.Gas.Count(),
+                    TongSoKhachHang = db.KhachHangs.Count(),
+                    TongDoanhThu = doanhThu
+                };
+
+                return new ResponseModel()
+                {
+                    Status = true,
+                    Data = res
+                };
+            }
         }
-    }
+    }   
 }

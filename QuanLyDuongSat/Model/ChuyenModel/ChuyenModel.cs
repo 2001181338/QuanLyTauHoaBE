@@ -17,6 +17,7 @@ namespace QuanLyDuongSat.Model.ChuyenModel
         public string TinhGaDi { get; set; }
         public string TinhGaDen { get; set; }
         public double TimeOrderBy { get; set; }
+        public bool NotAllowEdit { get; set; }
     }
 
     public class ChuyenThemModel

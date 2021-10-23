@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyTauHoa" Class="QuanLyDuongSatDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-7QH1ARS;Initial Catalog=QuanLyTauHoa;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyTauHoaConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-H5BQAG2\SQLEXPRESS;Initial Catalog=QuanLyTauHoa;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyTauHoaConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Chuyen" Member="Chuyens">
     <Type Name="Chuyen">
       <Column Name="MaChuyen" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -12,11 +12,15 @@
   <Table Name="dbo.Ve" Member="Ves">
     <Type Name="Ve">
       <Column Name="SoVe" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="MaDatVe" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="MaLoaiVe" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TrangThaiVe" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="NgayBanVe" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="DatVe_Ve" Member="DatVe" ThisKey="MaDatVe" OtherKey="MaDatVe" Type="DatVe" IsForeignKey="true" />
+      <Column Name="MaGhe" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaKhach" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrangThai" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PhiTraVe" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Ghe_Ve" Member="Ghe" ThisKey="MaGhe" OtherKey="MaGhe" Type="Ghe" IsForeignKey="true" />
+      <Association Name="KhachHang_Ve" Member="KhachHang" ThisKey="MaKhach" OtherKey="MaKhach" Type="KhachHang" IsForeignKey="true" />
       <Association Name="LoaiVe_Ve" Member="LoaiVe" ThisKey="MaLoaiVe" OtherKey="MaLoaiVe" Type="LoaiVe" IsForeignKey="true" />
     </Type>
   </Table>
@@ -26,20 +30,14 @@
       <Column Name="MaChuyen" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="MaTau" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="NgayKhoiHanh" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedByUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UpdatedByUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateUpdated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TrangThai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="ChuyenTau_LoaiVe" Member="LoaiVes" ThisKey="MaChuyenTau" OtherKey="MaChuyenTau" Type="LoaiVe" />
       <Association Name="Chuyen_ChuyenTau" Member="Chuyen" ThisKey="MaChuyen" OtherKey="MaChuyen" Type="Chuyen" IsForeignKey="true" />
       <Association Name="Tau_ChuyenTau" Member="Tau" ThisKey="MaTau" OtherKey="MaTau" Type="Tau" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DatVe" Member="DatVes">
-    <Type Name="DatVe">
-      <Column Name="MaDatVe" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="MaKhach" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="NgayDat" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ThanhTien" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="SoLuongVeDat" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="DatVe_Ve" Member="Ves" ThisKey="MaDatVe" OtherKey="MaDatVe" Type="Ve" />
-      <Association Name="KhachHang_DatVe" Member="KhachHang" ThisKey="MaKhach" OtherKey="MaKhach" Type="KhachHang" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Ga" Member="Gas">
@@ -58,6 +56,7 @@
       <Column Name="TenGhe" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="DaXoa" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="MaToa" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Ghe_Ve" Member="Ves" ThisKey="MaGhe" OtherKey="MaGhe" Type="Ve" />
       <Association Name="Toa_Ghe" Member="Toa" ThisKey="MaToa" OtherKey="MaToa" Type="Toa" IsForeignKey="true" />
     </Type>
   </Table>
@@ -65,11 +64,9 @@
     <Type Name="KhachHang">
       <Column Name="MaKhach" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="HoTen" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="NgaySinh" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="GioiTinh" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CMND" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
       <Column Name="SoDT" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Association Name="KhachHang_DatVe" Member="DatVes" ThisKey="MaKhach" OtherKey="MaKhach" Type="DatVe" />
+      <Association Name="KhachHang_Ve" Member="Ves" ThisKey="MaKhach" OtherKey="MaKhach" Type="Ve" />
     </Type>
   </Table>
   <Table Name="dbo.LoaiVe" Member="LoaiVes">
@@ -80,6 +77,14 @@
       <Column Name="LoaiVe" Member="LoaiVe1" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="LoaiVe_Ve" Member="Ves" ThisKey="MaLoaiVe" OtherKey="MaLoaiVe" Type="Ve" />
       <Association Name="ChuyenTau_LoaiVe" Member="ChuyenTau" ThisKey="MaChuyenTau" OtherKey="MaChuyenTau" Type="ChuyenTau" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NganHang" Member="NganHangs">
+    <Type Name="NganHang">
+      <Column Name="MaNganHang" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SoDu" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="CMND" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="MaBaoMat" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.QuanTri" Member="QuanTris">
@@ -108,7 +113,6 @@
   <Table Name="dbo.Toa" Member="Toas">
     <Type Name="Toa">
       <Column Name="MaToa" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="SoLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="MaTau" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="LoaiCho" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TenToa" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
@@ -122,6 +126,10 @@
       <Column Name="GaDi" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="GaDen" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TuyenCha" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateUpdated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedByUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UpdatedByUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="Tuyen_Chuyen" Member="Chuyens" ThisKey="MaTuyen" OtherKey="MaTuyen" Type="Chuyen" />
       <Association Name="Tuyen_Tuyen" Member="Tuyens" ThisKey="MaTuyen" OtherKey="TuyenCha" Type="Tuyen" />
       <Association Name="Ga_Tuyen" Member="Ga" ThisKey="GaDi" OtherKey="MaGa" Type="Ga" IsForeignKey="true" />
