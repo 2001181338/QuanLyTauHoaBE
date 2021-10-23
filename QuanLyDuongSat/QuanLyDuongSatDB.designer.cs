@@ -393,8 +393,6 @@ namespace QuanLyDuongSat
 		
 		private int _SoVe;
 		
-		private System.Nullable<int> _MaDatVe;
-		
 		private System.Nullable<int> _MaLoaiVe;
 		
 		private System.Nullable<int> _TrangThaiVe;
@@ -421,8 +419,6 @@ namespace QuanLyDuongSat
     partial void OnCreated();
     partial void OnSoVeChanging(int value);
     partial void OnSoVeChanged();
-    partial void OnMaDatVeChanging(System.Nullable<int> value);
-    partial void OnMaDatVeChanged();
     partial void OnMaLoaiVeChanging(System.Nullable<int> value);
     partial void OnMaLoaiVeChanged();
     partial void OnTrangThaiVeChanging(System.Nullable<int> value);
@@ -463,26 +459,6 @@ namespace QuanLyDuongSat
 					this._SoVe = value;
 					this.SendPropertyChanged("SoVe");
 					this.OnSoVeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaDatVe", DbType="Int")]
-		public System.Nullable<int> MaDatVe
-		{
-			get
-			{
-				return this._MaDatVe;
-			}
-			set
-			{
-				if ((this._MaDatVe != value))
-				{
-					this.OnMaDatVeChanging(value);
-					this.SendPropertyChanging();
-					this._MaDatVe = value;
-					this.SendPropertyChanged("MaDatVe");
-					this.OnMaDatVeChanged();
 				}
 			}
 		}
@@ -1546,15 +1522,9 @@ namespace QuanLyDuongSat
 		
 		private string _HoTen;
 		
-		private System.Nullable<System.DateTime> _NgaySinh;
-		
-		private System.Nullable<int> _GioiTinh;
-		
 		private string _CMND;
 		
 		private string _SoDT;
-		
-		private string _MatKhau;
 		
 		private EntitySet<Ve> _Ves;
 		
@@ -1566,16 +1536,10 @@ namespace QuanLyDuongSat
     partial void OnMaKhachChanged();
     partial void OnHoTenChanging(string value);
     partial void OnHoTenChanged();
-    partial void OnNgaySinhChanging(System.Nullable<System.DateTime> value);
-    partial void OnNgaySinhChanged();
-    partial void OnGioiTinhChanging(System.Nullable<int> value);
-    partial void OnGioiTinhChanged();
     partial void OnCMNDChanging(string value);
     partial void OnCMNDChanged();
     partial void OnSoDTChanging(string value);
     partial void OnSoDTChanged();
-    partial void OnMatKhauChanging(string value);
-    partial void OnMatKhauChanged();
     #endregion
 		
 		public KhachHang()
@@ -1624,46 +1588,6 @@ namespace QuanLyDuongSat
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgaySinh", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NgaySinh
-		{
-			get
-			{
-				return this._NgaySinh;
-			}
-			set
-			{
-				if ((this._NgaySinh != value))
-				{
-					this.OnNgaySinhChanging(value);
-					this.SendPropertyChanging();
-					this._NgaySinh = value;
-					this.SendPropertyChanged("NgaySinh");
-					this.OnNgaySinhChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GioiTinh", DbType="Int")]
-		public System.Nullable<int> GioiTinh
-		{
-			get
-			{
-				return this._GioiTinh;
-			}
-			set
-			{
-				if ((this._GioiTinh != value))
-				{
-					this.OnGioiTinhChanging(value);
-					this.SendPropertyChanging();
-					this._GioiTinh = value;
-					this.SendPropertyChanged("GioiTinh");
-					this.OnGioiTinhChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CMND", DbType="VarChar(15)")]
 		public string CMND
 		{
@@ -1700,26 +1624,6 @@ namespace QuanLyDuongSat
 					this._SoDT = value;
 					this.SendPropertyChanged("SoDT");
 					this.OnSoDTChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MatKhau", DbType="NVarChar(50)")]
-		public string MatKhau
-		{
-			get
-			{
-				return this._MatKhau;
-			}
-			set
-			{
-				if ((this._MatKhau != value))
-				{
-					this.OnMatKhauChanging(value);
-					this.SendPropertyChanging();
-					this._MatKhau = value;
-					this.SendPropertyChanged("MatKhau");
-					this.OnMatKhauChanged();
 				}
 			}
 		}
