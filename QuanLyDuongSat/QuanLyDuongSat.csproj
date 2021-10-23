@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="Configuration\QLDSWebAPIConfig.cs" />
     <Compile Include="Controller\ChuyenController.cs" />
+    <Compile Include="Controller\ChuyenTauController.cs" />
     <Compile Include="Controller\GaController.cs" />
     <Compile Include="Controller\KhachHangController.cs" />
     <Compile Include="Controller\NhanVienController.cs" />
@@ -103,11 +104,13 @@
     <Compile Include="Controller\TuyenController.cs" />
     <Compile Include="Controller\ToaController.cs" />
     <Compile Include="Controller\VeController.cs" />
+    <Compile Include="Enumeration\ChuyenTauEnum.cs" />
     <Compile Include="Enumeration\LoaiToaTauEnum.cs" />
     <Compile Include="Enumeration\TrangThaiVeEnum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GlobalVariable\TaiKhoanDangNhap.cs" />
     <Compile Include="Model\ChuyenModel\ChuyenModel.cs" />
     <Compile Include="Model\ChuyenTauModel\ChuyenTauModel.cs" />
     <Compile Include="Model\GaModel\GaModel.cs" />

@@ -18,4 +18,5 @@ namespace QuanLyDuongSat.Enumeration
         CaNhan = 1,
         TapThe = 2
     }
+
 }

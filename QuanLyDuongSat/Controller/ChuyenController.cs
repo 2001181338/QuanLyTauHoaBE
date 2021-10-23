@@ -20,6 +20,7 @@ namespace QuanLyDuongSat.Controller
         {
             using(QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
             {
+                var chuyenTau = db.ChuyenTaus.ToList();
                 var res = from chuyen in db.Chuyens
                           join tuyen in db.Tuyens on chuyen.MaTuyen equals tuyen.MaTuyen
                           join GaDi in db.Gas on tuyen.GaDi equals GaDi.MaGa
@@ -39,10 +40,15 @@ namespace QuanLyDuongSat.Controller
                               TinhGaDen = tinhGaDen.TenThanhPhoTinh,
                               TimeOrderBy = TimeSpan.Parse(chuyen.GioKhoiHanh).TotalHours
                           };
+                var lstChuyen = res.ToList();
+                foreach(var chuyen in lstChuyen)
+                {
+                    chuyen.NotAllowEdit = chuyenTau.Any(x => x.MaChuyen == chuyen.MaChuyen);
+                }
                 return new ResponseModel()
                 {
                     Status = true,
-                    Data = res.ToList()
+                    Data = lstChuyen.ToList()
                 };
             }
         }
@@ -103,6 +109,16 @@ namespace QuanLyDuongSat.Controller
                     {
                         Status = false,
                         Message = "Chuyến này không tồn tại"
+                    };
+                }
+
+                var chuyenTau = db.ChuyenTaus.FirstOrDefault(x => x.MaChuyen == chuyen.MaChuyen);
+                if(chuyenTau != null)
+                {
+                    return new ResponseModel()
+                    {
+                        Status = false,
+                        Message = "Chuyến này đang được thiết lập trên chuyến tàu"
                     };
                 }
 

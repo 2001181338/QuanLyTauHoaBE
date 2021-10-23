@@ -18,12 +18,14 @@ namespace QuanLyDuongSat.Controller
         {
             using (QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
             {
+                var tinhThanhPhos = db.ThanhPho_Tinhs.ToList();
                 var danhsachGa = db.Gas.ToList().Select(x => new VeModel()
                 {
                     MaGa = x.MaGa,
                     TenGa = x.TenGa,
                     MaThanhPhoTinh = (int)x.MaThanhPhoTinh
                 }).ToList();
+
                 return new ResponseModel()
                 {
                     Data = danhsachGa.ToList(),

@@ -776,6 +776,16 @@ namespace QuanLyDuongSat
 		
 		private System.Nullable<System.DateTime> _NgayKhoiHanh;
 		
+		private string _CreatedByUser;
+		
+		private string _UpdatedByUser;
+		
+		private System.Nullable<System.DateTime> _DateCreated;
+		
+		private System.Nullable<System.DateTime> _DateUpdated;
+		
+		private System.Nullable<int> _TrangThai;
+		
 		private EntitySet<LoaiVe> _LoaiVes;
 		
 		private EntityRef<Chuyen> _Chuyen;
@@ -794,6 +804,16 @@ namespace QuanLyDuongSat
     partial void OnMaTauChanged();
     partial void OnNgayKhoiHanhChanging(System.Nullable<System.DateTime> value);
     partial void OnNgayKhoiHanhChanged();
+    partial void OnCreatedByUserChanging(string value);
+    partial void OnCreatedByUserChanged();
+    partial void OnUpdatedByUserChanging(string value);
+    partial void OnUpdatedByUserChanged();
+    partial void OnDateCreatedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateCreatedChanged();
+    partial void OnDateUpdatedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateUpdatedChanged();
+    partial void OnTrangThaiChanging(System.Nullable<int> value);
+    partial void OnTrangThaiChanged();
     #endregion
 		
 		public ChuyenTau()
@@ -888,6 +908,106 @@ namespace QuanLyDuongSat
 					this._NgayKhoiHanh = value;
 					this.SendPropertyChanged("NgayKhoiHanh");
 					this.OnNgayKhoiHanhChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedByUser", DbType="VarChar(50)")]
+		public string CreatedByUser
+		{
+			get
+			{
+				return this._CreatedByUser;
+			}
+			set
+			{
+				if ((this._CreatedByUser != value))
+				{
+					this.OnCreatedByUserChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedByUser = value;
+					this.SendPropertyChanged("CreatedByUser");
+					this.OnCreatedByUserChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedByUser", DbType="VarChar(50)")]
+		public string UpdatedByUser
+		{
+			get
+			{
+				return this._UpdatedByUser;
+			}
+			set
+			{
+				if ((this._UpdatedByUser != value))
+				{
+					this.OnUpdatedByUserChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedByUser = value;
+					this.SendPropertyChanged("UpdatedByUser");
+					this.OnUpdatedByUserChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreated", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateCreated
+		{
+			get
+			{
+				return this._DateCreated;
+			}
+			set
+			{
+				if ((this._DateCreated != value))
+				{
+					this.OnDateCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._DateCreated = value;
+					this.SendPropertyChanged("DateCreated");
+					this.OnDateCreatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateUpdated", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateUpdated
+		{
+			get
+			{
+				return this._DateUpdated;
+			}
+			set
+			{
+				if ((this._DateUpdated != value))
+				{
+					this.OnDateUpdatedChanging(value);
+					this.SendPropertyChanging();
+					this._DateUpdated = value;
+					this.SendPropertyChanged("DateUpdated");
+					this.OnDateUpdatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrangThai", DbType="Int")]
+		public System.Nullable<int> TrangThai
+		{
+			get
+			{
+				return this._TrangThai;
+			}
+			set
+			{
+				if ((this._TrangThai != value))
+				{
+					this.OnTrangThaiChanging(value);
+					this.SendPropertyChanging();
+					this._TrangThai = value;
+					this.SendPropertyChanged("TrangThai");
+					this.OnTrangThaiChanged();
 				}
 			}
 		}
@@ -2594,6 +2714,14 @@ namespace QuanLyDuongSat
 		
 		private System.Nullable<int> _TuyenCha;
 		
+		private System.Nullable<System.DateTime> _DateCreated;
+		
+		private System.Nullable<System.DateTime> _DateUpdated;
+		
+		private string _CreatedByUser;
+		
+		private string _UpdatedByUser;
+		
 		private EntitySet<Chuyen> _Chuyens;
 		
 		private EntitySet<Tuyen> _Tuyens;
@@ -2616,6 +2744,14 @@ namespace QuanLyDuongSat
     partial void OnGaDenChanged();
     partial void OnTuyenChaChanging(System.Nullable<int> value);
     partial void OnTuyenChaChanged();
+    partial void OnDateCreatedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateCreatedChanged();
+    partial void OnDateUpdatedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateUpdatedChanged();
+    partial void OnCreatedByUserChanging(string value);
+    partial void OnCreatedByUserChanged();
+    partial void OnUpdatedByUserChanging(string value);
+    partial void OnUpdatedByUserChanged();
     #endregion
 		
 		public Tuyen()
@@ -2716,6 +2852,86 @@ namespace QuanLyDuongSat
 					this._TuyenCha = value;
 					this.SendPropertyChanged("TuyenCha");
 					this.OnTuyenChaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreated", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateCreated
+		{
+			get
+			{
+				return this._DateCreated;
+			}
+			set
+			{
+				if ((this._DateCreated != value))
+				{
+					this.OnDateCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._DateCreated = value;
+					this.SendPropertyChanged("DateCreated");
+					this.OnDateCreatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateUpdated", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateUpdated
+		{
+			get
+			{
+				return this._DateUpdated;
+			}
+			set
+			{
+				if ((this._DateUpdated != value))
+				{
+					this.OnDateUpdatedChanging(value);
+					this.SendPropertyChanging();
+					this._DateUpdated = value;
+					this.SendPropertyChanged("DateUpdated");
+					this.OnDateUpdatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedByUser", DbType="VarChar(50)")]
+		public string CreatedByUser
+		{
+			get
+			{
+				return this._CreatedByUser;
+			}
+			set
+			{
+				if ((this._CreatedByUser != value))
+				{
+					this.OnCreatedByUserChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedByUser = value;
+					this.SendPropertyChanged("CreatedByUser");
+					this.OnCreatedByUserChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedByUser", DbType="VarChar(50)")]
+		public string UpdatedByUser
+		{
+			get
+			{
+				return this._UpdatedByUser;
+			}
+			set
+			{
+				if ((this._UpdatedByUser != value))
+				{
+					this.OnUpdatedByUserChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedByUser = value;
+					this.SendPropertyChanged("UpdatedByUser");
+					this.OnUpdatedByUserChanged();
 				}
 			}
 		}

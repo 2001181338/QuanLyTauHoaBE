@@ -17,6 +17,7 @@ namespace QuanLyDuongSat.Controller
         {
             using (QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
             {
+                var tuyens = db.Tuyens.ToList();
                 var dsGa = from ga in db.Gas
                            join tinh in db.ThanhPho_Tinhs on ga.MaThanhPhoTinh equals tinh.MaThanhPhoTinh
                            select new GaModel
@@ -26,9 +27,15 @@ namespace QuanLyDuongSat.Controller
                                MaThanhPhoTinh = tinh.MaThanhPhoTinh,
                                TenThanhPhoTinh = tinh.TenThanhPhoTinh
                            };
+
+                var lstGa = dsGa.OrderBy(x => x.TenGa).ToList();
+                foreach(var ga in lstGa)
+                {
+                    ga.NotAllowEdit = tuyens.Any(x => x.GaDi == ga.MaGa || x.GaDen == ga.MaGa);
+                }
                 return new ResponseModel()
                 {
-                    Data = dsGa.OrderBy(x => x.TenGa).ToList(),
+                    Data = lstGa,
                     Status = true
                 };
             }
@@ -40,7 +47,7 @@ namespace QuanLyDuongSat.Controller
         {
             using (QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
             {
-                var gaExisted = db.Gas.FirstOrDefault(x => x.TenGa.ToLower().Trim() == model.TenGa.ToLower().Trim() && x.MaThanhPhoTinh == model.MaThanhPhoTinh);
+                var gaExisted = db.Gas.FirstOrDefault(x => x.TenGa.ToLower().Trim() == model.TenGa.ToLower().Trim());
                 if (gaExisted != null)
                 {
                     return new ResponseModel()
@@ -99,7 +106,7 @@ namespace QuanLyDuongSat.Controller
 
 
                 //Check tenGa existed? True -> error
-                var gaTenExisted = db.Gas.FirstOrDefault(x => x.MaGa != model.MaGa && x.TenGa.ToLower().Trim() == model.TenGa.ToLower().Trim() && x.MaThanhPhoTinh == model.MaThanhPhoTinh);
+                var gaTenExisted = db.Gas.FirstOrDefault(x => x.MaGa != model.MaGa && x.TenGa.ToLower().Trim() == model.TenGa.ToLower().Trim());
 
                 if (gaTenExisted != null)
                 {
