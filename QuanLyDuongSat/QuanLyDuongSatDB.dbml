@@ -12,7 +12,6 @@
   <Table Name="dbo.Ve" Member="Ves">
     <Type Name="Ve">
       <Column Name="SoVe" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="MaDatVe" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="MaLoaiVe" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TrangThaiVe" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="NgayBanVe" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -20,7 +19,6 @@
       <Column Name="MaKhach" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TrangThai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PhiTraVe" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="TienThanhToan" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Association Name="Ghe_Ve" Member="Ghe" ThisKey="MaGhe" OtherKey="MaGhe" Type="Ghe" IsForeignKey="true" />
       <Association Name="KhachHang_Ve" Member="KhachHang" ThisKey="MaKhach" OtherKey="MaKhach" Type="KhachHang" IsForeignKey="true" />
       <Association Name="LoaiVe_Ve" Member="LoaiVe" ThisKey="MaLoaiVe" OtherKey="MaLoaiVe" Type="LoaiVe" IsForeignKey="true" />
@@ -65,7 +63,6 @@
       <Column Name="GioiTinh" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CMND" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
       <Column Name="SoDT" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="MatKhau" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="KhachHang_Ve" Member="Ves" ThisKey="MaKhach" OtherKey="MaKhach" Type="Ve" />
     </Type>
   </Table>
