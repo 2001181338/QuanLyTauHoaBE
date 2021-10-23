@@ -30,4 +30,27 @@ namespace QuanLyDuongSat.Model.VeModel
         public DateTime NgayDat { get; set; }
         public TrangThaiVeEnum TrangThai { get; set; }
     }
+
+    public class TraVeModel
+    {
+        public int MaVe { get; set; }
+        public string CMND { get; set; }
+        public string MaBaoMat { get; set; }
+    }
+
+
+    public class TraVeAdminModel
+    {
+        public int MaVe { get; set; }
+        public string CMND { get; set; }
+    }
+
+
+    public class ThanhToanModel
+    {
+        public int MaVe { get; set; }
+        public double SoDu { get; set; }
+        public string CMND { get; set; }
+        public string MaBaoMat { get; set; }
+    }
 }
