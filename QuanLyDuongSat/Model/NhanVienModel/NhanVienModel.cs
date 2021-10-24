@@ -18,4 +18,10 @@ namespace QuanLyDuongSat.Model.NhanVienModel
         public int TongSoGa { get; set; }
         public int TongSoKhachHang { get; set; }
     }
+
+    public class NhanVienGetAllModel
+    {
+        public string TaiKhoan { get; set; }
+        public DateTime? NgayLap { get; set; }
+    }
 }

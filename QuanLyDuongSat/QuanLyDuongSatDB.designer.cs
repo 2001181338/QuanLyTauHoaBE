@@ -72,7 +72,7 @@ namespace QuanLyDuongSat
     #endregion
 		
 		public QuanLyDuongSatDBDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyTauHoaConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyTauHoaConnectionString1"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

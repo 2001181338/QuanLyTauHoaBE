@@ -141,7 +141,8 @@ namespace QuanLyDuongSat.Controller
                     MaTau = tau.MaTau,
                     NgayKhoiHanh = model.NgayKhoiHanh,
                     CreatedByUser = TaiKhoanDangNhap.TaiKhoan,
-                    DateCreated = DateTime.UtcNow
+                    DateCreated = DateTime.Now,
+                    TrangThai = (int)TrangThaiChuyenTauEnum.ChuaKhoiHanh
                 };
 
                 db.ChuyenTaus.InsertOnSubmit(newChuyenTau);
