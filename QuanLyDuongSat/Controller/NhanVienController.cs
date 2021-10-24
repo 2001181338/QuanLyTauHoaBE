@@ -89,5 +89,25 @@ namespace QuanLyDuongSat.Controller
                 };
             }
         }
+    
+        [Route("get-all")]
+        [HttpGet]
+        public ResponseModel GetAllNhanVien()
+        {
+            using(QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
+            {
+                var nhanViens = db.QuanTris.Select(x => new NhanVienGetAllModel()
+                {
+                    TaiKhoan = x.TaiKhoan,
+                    NgayLap = x.NgayLap
+                }).ToList();
+
+                return new ResponseModel()
+                {
+                    Status = true,
+                    Data = nhanViens
+                };
+            }
+        }
     }   
 }
