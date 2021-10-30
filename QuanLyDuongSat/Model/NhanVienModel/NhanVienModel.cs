@@ -24,4 +24,11 @@ namespace QuanLyDuongSat.Model.NhanVienModel
         public string TaiKhoan { get; set; }
         public DateTime? NgayLap { get; set; }
     }
+
+    public class NhanVienThongKeThangModel
+    {
+        public int Thang { get; set; }
+        public double DoanhThu { get; set; }
+        public bool IsMax { get; set; }
+    }
 }
