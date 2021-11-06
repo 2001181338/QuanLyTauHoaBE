@@ -277,3 +277,5 @@ C:\Users\Thin\Desktop\DoAn\Binh\QuanLyTauHoaBE\QuanLyDuongSat\obj\Debug\QuanLyDu
 C:\Users\Thin\Desktop\DoAn\Binh\QuanLyTauHoaBE\QuanLyDuongSat\obj\Debug\QuanLyDuongSat.csproj.CopyComplete
 C:\Users\Thin\Desktop\DoAn\Binh\QuanLyTauHoaBE\QuanLyDuongSat\obj\Debug\QuanLyDuongSat.dll
 C:\Users\Thin\Desktop\DoAn\Binh\QuanLyTauHoaBE\QuanLyDuongSat\obj\Debug\QuanLyDuongSat.pdb
+C:\Users\Thin\Desktop\DoAn\QuanLyTauHoaBE\QuanLyDuongSat\bin\FluentScheduler.dll
+C:\Users\Thin\Desktop\DoAn\QuanLyTauHoaBE\QuanLyDuongSat\bin\FluentScheduler.xml

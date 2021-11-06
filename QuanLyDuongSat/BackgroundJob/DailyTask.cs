@@ -14,11 +14,10 @@ namespace QuanLyDuongSat.BackgroundJob
             using(QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
             {
                 var ves = db.Ves.Where(x => x.TrangThai == (int)TrangThaiVeEnum.ChuaThanhToan).ToList();
-                var seconds = 3600;
 
                 foreach (var ve in ves)
                 {
-                    var gioDaTru = (ve.NgayBanVe.Value - DateTime.Now).TotalSeconds;
+                    var gioDaTru = (DateTime.Now - ve.NgayBanVe.Value).TotalSeconds;
                     if (gioDaTru >= 43200)
                     {
                         ve.TrangThai = (int)TrangThaiVeEnum.DaHuy;

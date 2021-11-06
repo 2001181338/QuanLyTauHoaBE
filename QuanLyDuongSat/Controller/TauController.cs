@@ -24,7 +24,7 @@ namespace QuanLyDuongSat.Controller
                 {
                     MaTau = x.MaTau,
                     TenTau = x.TenTau
-                }).ToList();
+                }).OrderBy(y => y.TenTau).ToList();
 
                 return new ResponseModel()
                 {
