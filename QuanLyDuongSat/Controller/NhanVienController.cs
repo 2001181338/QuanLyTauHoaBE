@@ -19,7 +19,7 @@ namespace QuanLyDuongSat.Controller
         [HttpPost]
         public ResponseModel DangNhap(NhanVienDangNhapModel model)
         {
-            if(string.IsNullOrEmpty(model.TaiKhoan) || string.IsNullOrEmpty(model.MatKhau))
+            if (string.IsNullOrEmpty(model.TaiKhoan) || string.IsNullOrEmpty(model.MatKhau))
             {
                 return new ResponseModel
                 {
@@ -51,12 +51,12 @@ namespace QuanLyDuongSat.Controller
                 };
             }
         }
-      
+
         [Route("dashboard")]
         [HttpGet]
         public ResponseModel GetInfoDashBoard()
         {
-            using(QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
+            using (QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
             {
                 var veDaThanhToan = db.Ves.Where(x => x.TrangThai == (int)TrangThaiVeEnum.DaThanhToan).ToList();
                 var VeDaTinhPhi = db.Ves.Where(x => x.PhiTraVe != null && x.PhiTraVe != 0).ToList();
@@ -66,14 +66,14 @@ namespace QuanLyDuongSat.Controller
                 foreach (var ve in veDaThanhToan)
                 {
                     var loaiVe = loaiVes.FirstOrDefault(x => x.MaLoaiVe == ve.MaLoaiVe);
-                    if(loaiVe != null)
+                    if (loaiVe != null)
                     {
                         doanhThu += loaiVe.GiaVe ?? 0;
                     }
                 }
 
                 doanhThu += VeDaTinhPhi.Sum(x => x.PhiTraVe) ?? 0;
-                
+
                 var res = new NhanVienDashBoardModel()
                 {
                     SoLuongTau = db.Taus.Count(),
@@ -89,5 +89,81 @@ namespace QuanLyDuongSat.Controller
                 };
             }
         }
-    }   
+
+        [Route("get-all")]
+        [HttpGet]
+        public ResponseModel GetAllNhanVien()
+        {
+            using (QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
+            {
+                var nhanViens = db.QuanTris.Select(x => new NhanVienGetAllModel()
+                {
+                    TaiKhoan = x.TaiKhoan,
+                    NgayLap = x.NgayLap
+                }).ToList();
+
+                return new ResponseModel()
+                {
+                    Status = true,
+                    Data = nhanViens
+                };
+            }
+        }
+
+        [Route("thong-ke/{nam}")]
+        [HttpGet]
+        public ResponseModel GetAllThongKeTheoNam(int nam)
+        {
+            using (QuanLyDuongSatDBDataContext db = new QuanLyDuongSatDBDataContext())
+            {
+                var ves = db.Ves.Where(x => x.NgayBanVe.Value.Year == nam && (x.TrangThai == (int)TrangThaiVeEnum.DaThanhToan || (x.TrangThai == (int)TrangThaiVeEnum.DaHuy && x.PhiTraVe != 0))).ToList();
+                var listThangDoanhThu = new List<NhanVienThongKeThangModel>();
+                var allLoaiVe = db.LoaiVes.ToList();
+                var lstLoaiVe = allLoaiVe.Where(x => ves.Any(y => y.MaLoaiVe == x.MaLoaiVe)).ToList();
+                double giaMax = 0;
+
+                for (int i = 1; i <= 12; i++)
+                {
+                    var veThang = ves.Where(x => x.NgayBanVe.Value.Month == i).ToList();
+                    double doanhThu = 0;
+                    if (veThang.Any())
+                    {
+                        foreach (var ve in veThang)
+                        {
+                            var loaiVe = lstLoaiVe.FirstOrDefault(x => x.MaLoaiVe == ve.MaLoaiVe);
+                            if (loaiVe != null)
+                            {
+                                doanhThu += loaiVe.GiaVe ?? 0;
+                            }
+                        }
+                    }
+
+                    if (doanhThu > giaMax) giaMax = doanhThu;
+
+                    var thang = new NhanVienThongKeThangModel()
+                    {
+                        Thang = i,
+                        DoanhThu = doanhThu
+                    };
+
+                    listThangDoanhThu.Add(thang);
+                }
+
+                foreach(var thang in listThangDoanhThu)
+                {
+                    if(giaMax != 0 && thang.DoanhThu == giaMax)
+                    {
+                        thang.IsMax = true;
+                        break;
+                    }
+                }
+
+                return new ResponseModel()
+                {
+                    Status = true,
+                    Data = listThangDoanhThu
+                };
+            }
+        }
+    }
 }
