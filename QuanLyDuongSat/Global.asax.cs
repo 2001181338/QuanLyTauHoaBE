@@ -1,4 +1,6 @@
-﻿using QuanLyDuongSat.Configuration;
+﻿using FluentScheduler;
+using QuanLyDuongSat.BackgroundJob;
+using QuanLyDuongSat.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,11 @@ namespace QuanLyDuongSat
         protected void Application_Start(object sender, EventArgs e)
         {
             GlobalConfiguration.Configure(QLDSWebAPIConfig.Register);
+            JobManager.Initialize();
+            JobManager.AddJob(
+                () => { DailyTask.XoaVeHetHan(); },
+                s => s.ToRunEvery(1).Minutes()
+                );
         }
 
         protected void Session_Start(object sender, EventArgs e)
