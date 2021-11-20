@@ -32,6 +32,10 @@ namespace QuanLyDuongSat.Controller
                 foreach(var ga in lstGa)
                 {
                     ga.NotAllowEdit = tuyens.Any(x => x.GaDi == ga.MaGa || x.GaDen == ga.MaGa);
+                    var kyHieus = ga.TenGa.Split(' ').Where(y => !string.IsNullOrEmpty(y)).Select(x => x[0]).ToList();
+                    var kyHieuTemp = "";
+                    kyHieus.ForEach(x => kyHieuTemp += x);
+                    ga.KyHieu = kyHieuTemp;
                 }
                 return new ResponseModel()
                 {
