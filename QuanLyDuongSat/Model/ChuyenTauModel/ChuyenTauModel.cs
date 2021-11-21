@@ -19,6 +19,7 @@ namespace QuanLyDuongSat.Model.ChuyenTauModel
         public double GiaVeNam { get; set; }
         public bool HetHan { get; set; }
         public TrangThaiChuyenTauEnum TrangThai { get; set; }
+        public DateTime NgayGioKhoiHanh { get; set; }
         public List<ToaTimChuyenTauModel> Toas { get; set; }
         public string GiaVeNgoiStr { get => String.Format("{0:#,#.}", GiaVeNgoi); }
         public string GiaVeNamStr { get => String.Format("{0:#,#.}", GiaVeNam); }

@@ -362,7 +362,8 @@ namespace QuanLyDuongSat.Controller
                             LoaiToa = (LoaiToaTauEnum)y.LoaiCho
                         }).OrderBy(z => z.TenToa).ToList(),
                         HetHan = gioConvertSeconds < 86400,
-                        TrangThai = (TrangThaiChuyenTauEnum) chuyenTau.TrangThai
+                        TrangThai = (TrangThaiChuyenTauEnum) chuyenTau.TrangThai,
+                        NgayGioKhoiHanh = ngayKhoiHanh
                     };
 
                     listChuyenTau.Add(chuyenTauModel);
@@ -370,7 +371,7 @@ namespace QuanLyDuongSat.Controller
 
                 return new ResponseModel
                 {
-                    Data = listChuyenTau,
+                    Data = listChuyenTau.OrderBy(x => x.NgayGioKhoiHanh).ToList(),
                     Message = "Có chuyến tàu cần tìm",
                     Status = true
                 };

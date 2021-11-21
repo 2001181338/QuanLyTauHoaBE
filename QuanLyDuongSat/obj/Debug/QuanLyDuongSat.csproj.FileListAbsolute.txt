@@ -204,7 +204,6 @@ C:\Users\DELL\Desktop\SourceCode\QuanLyTauHoaBE\QuanLyDuongSat\bin\System.Web.Ht
 C:\Users\DELL\Desktop\SourceCode\QuanLyTauHoaBE\QuanLyDuongSat\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\DELL\Desktop\SourceCode\QuanLyTauHoaBE\QuanLyDuongSat\obj\Debug\QuanLyDuongSat.csproj.AssemblyReference.cache
 C:\Users\DELL\Desktop\SourceCode\QuanLyTauHoaBE\QuanLyDuongSat\obj\Debug\QuanLyDuongSat.csproj.CoreCompileInputs.cache
-C:\Users\DELL\Desktop\SourceCode\QuanLyTauHoaBE\QuanLyDuongSat\obj\Debug\QuanLyDuongSat.csproj.CopyComplete
 C:\Users\DELL\Desktop\SourceCode\QuanLyTauHoaBE\QuanLyDuongSat\obj\Debug\QuanLyDuongSat.dll
 C:\Users\DELL\Desktop\SourceCode\QuanLyTauHoaBE\QuanLyDuongSat\obj\Debug\QuanLyDuongSat.pdb
 C:\Users\Thin\Desktop\DoAn\Binh\QuanLyTauHoaBE\QuanLyDuongSat\bin\QuanLyDuongSat.dll.config
@@ -279,3 +278,5 @@ C:\Users\Thin\Desktop\DoAn\Binh\QuanLyTauHoaBE\QuanLyDuongSat\obj\Debug\QuanLyDu
 C:\Users\Thin\Desktop\DoAn\Binh\QuanLyTauHoaBE\QuanLyDuongSat\obj\Debug\QuanLyDuongSat.pdb
 C:\Users\Thin\Desktop\DoAn\QuanLyTauHoaBE\QuanLyDuongSat\bin\FluentScheduler.dll
 C:\Users\Thin\Desktop\DoAn\QuanLyTauHoaBE\QuanLyDuongSat\bin\FluentScheduler.xml
+C:\Users\DELL\Desktop\SourceCode\QuanLyTauHoaBE\QuanLyDuongSat\bin\FluentScheduler.dll
+C:\Users\DELL\Desktop\SourceCode\QuanLyTauHoaBE\QuanLyDuongSat\bin\FluentScheduler.xml
