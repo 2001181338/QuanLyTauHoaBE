@@ -100,6 +100,7 @@
     <Compile Include="Controller\ChuyenTauController.cs" />
     <Compile Include="Controller\GaController.cs" />
     <Compile Include="Controller\KhachHangController.cs" />
+    <Compile Include="Controller\NganHangController.cs" />
     <Compile Include="Controller\NhanVienController.cs" />
     <Compile Include="Controller\TestController.cs" />
     <Compile Include="Controller\ThongTinDatVeController.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Model\GaModel\GaModel.cs" />
     <Compile Include="Model\GheModel\GetGeByToaModel.cs" />
     <Compile Include="Model\KhachHangModel\KhachHangModel.cs" />
+    <Compile Include="Model\NganHangModel\NganHangModel.cs" />
     <Compile Include="Model\NhanVienModel\NhanVienModel.cs" />
     <Compile Include="Model\QuanLyVeTauModel\QuanLyVeTauModel.cs" />
     <Compile Include="Model\ResponseModel\ResponseModel.cs" />

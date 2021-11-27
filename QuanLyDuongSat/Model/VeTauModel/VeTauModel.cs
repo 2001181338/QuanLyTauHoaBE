@@ -21,6 +21,8 @@ namespace QuanLyDuongSat.Model.VeTauModel
         public string GaDi { get; set; }
         public string GaDen { get; set; }
         public DateTime? NgayKhoiHanh { get; set; }
-        //public bool CoTheDoi { get; set; }
+        public DateTime? NgayBanVe { get; set; }
+        public int TrangThai { get; set; }
+        public string SoCho { get; set; }
     }
 }

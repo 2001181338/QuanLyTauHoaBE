@@ -11,4 +11,9 @@ namespace QuanLyDuongSat.Model.TimKiemThongTinVeDatModel
         public string CMND { get; set; }
         public string SoDT { get; set; }
     }
+
+    public class TimKiemThongTinVeDatBySoVesModel
+    {
+        public List<int> SoVes { get; set; }
+    }
 }
