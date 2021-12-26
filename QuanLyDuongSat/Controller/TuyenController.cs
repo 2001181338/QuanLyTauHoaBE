@@ -341,7 +341,7 @@ namespace QuanLyDuongSat.Controller
                 foreach (var chuyenTau in chuyenTaus)
                 {
                     var chuyen = chuyens.FirstOrDefault(x => x.MaChuyen == chuyenTau.MaChuyen);
-                    var sNgayKhoiHanh = chuyenTau.NgayKhoiHanh.ToString().Substring(0, 10) + " " + chuyen.GioKhoiHanh;
+                    var sNgayKhoiHanh = chuyenTau?.NgayKhoiHanh.Value.ToString("dd/MM/yyyy") + " " + chuyen.GioKhoiHanh;
                     var ngayKhoiHanh = DateTime.Parse(sNgayKhoiHanh);
                     var gioConvertSeconds = (ngayKhoiHanh - DateTime.Now).TotalSeconds;
 
@@ -351,7 +351,7 @@ namespace QuanLyDuongSat.Controller
                         GaDi = gaDi.TenGa,
                         GaDen = gaDen.TenGa,
                         GioKhoiHanh = chuyen?.GioKhoiHanh,
-                        NgayKhoiHanh = chuyenTau?.NgayKhoiHanh.ToString().Substring(0, 10),
+                        NgayKhoiHanh = chuyenTau?.NgayKhoiHanh.Value.ToString("dd/MM/yyyy"),
                         TenTau = allTau.FirstOrDefault(x => x.MaTau == chuyenTau.MaTau)?.TenTau,
                         GiaVeNgoi = loaiVes.FirstOrDefault(x => x.MaChuyenTau == chuyenTau.MaChuyenTau && x.LoaiVe1 == 2).GiaVe ?? 0,
                         GiaVeNam = loaiVes.FirstOrDefault(x => x.MaChuyenTau == chuyenTau.MaChuyenTau && x.LoaiVe1 == 1).GiaVe ?? 0,

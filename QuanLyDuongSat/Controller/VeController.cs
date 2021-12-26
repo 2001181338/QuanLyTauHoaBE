@@ -74,7 +74,7 @@ namespace QuanLyDuongSat.Controller
                     };
                 }
 
-                var ngayKhoiHanh = DateTime.Parse(chuyenTau.NgayKhoiHanh.ToString().Substring(0, 10) + " " + chuyen.GioKhoiHanh);
+                var ngayKhoiHanh = DateTime.Parse(chuyenTau.NgayKhoiHanh.Value.ToString("dd/MM/yyyy") + " " + chuyen.GioKhoiHanh);
                 var gioConvertSeconds = (ngayKhoiHanh - DateTime.Now).TotalSeconds;
                 if (gioConvertSeconds < 86400)
                 {
@@ -254,7 +254,7 @@ namespace QuanLyDuongSat.Controller
                 var chuyenTau = db.ChuyenTaus.FirstOrDefault(x => x.MaChuyenTau == loaiVe.MaChuyenTau);
                 var chuyen = db.Chuyens.FirstOrDefault(x => x.MaChuyen == chuyenTau.MaChuyen);
 
-                var sNgayKhoiHanh = chuyenTau.NgayKhoiHanh.ToString().Substring(0, 10) + " " + chuyen.GioKhoiHanh;
+                var sNgayKhoiHanh = chuyenTau.NgayKhoiHanh.Value.ToString("dd/MM/yyyy") + " " + chuyen.GioKhoiHanh;
                 var ngayKhoiHanhConvert = DateTime.Parse(sNgayKhoiHanh);
                 var gioDaTru = (ngayKhoiHanhConvert - DateTime.Now).TotalSeconds;
                 var seconds = 3600;
@@ -347,7 +347,7 @@ namespace QuanLyDuongSat.Controller
                 var chuyenTau = db.ChuyenTaus.FirstOrDefault(x => x.MaChuyenTau == loaiVe.MaChuyenTau);
                 var chuyen = db.Chuyens.FirstOrDefault(x => x.MaChuyen == chuyenTau.MaChuyen);
 
-                var sNgayKhoiHanh = chuyenTau.NgayKhoiHanh.ToString().Substring(0, 10) + " " + chuyen.GioKhoiHanh;
+                var sNgayKhoiHanh = chuyenTau?.NgayKhoiHanh.Value.ToString("dd/MM/yyyy") + " " + chuyen.GioKhoiHanh;
                 var ngayKhoiHanhConvert = DateTime.Parse(sNgayKhoiHanh);
                 var gioDaTru = (ngayKhoiHanhConvert - DateTime.Now).TotalSeconds;
                 var seconds = 3600;
@@ -562,7 +562,7 @@ namespace QuanLyDuongSat.Controller
                 var chuyenTau = db.ChuyenTaus.FirstOrDefault(x => x.MaChuyenTau == loaiVe.MaChuyenTau);
                 var chuyen = db.Chuyens.FirstOrDefault(x => x.MaChuyen == chuyenTau.MaChuyen);
 
-                var sNgayKhoiHanh = chuyenTau.NgayKhoiHanh.ToString().Substring(0, 10) + " " + chuyen.GioKhoiHanh;
+                var sNgayKhoiHanh = chuyenTau.NgayKhoiHanh.Value.ToString("dd/MM/yyyy") + " " + chuyen.GioKhoiHanh;
                 var ngayKhoiHanhConvert = DateTime.Parse(sNgayKhoiHanh);
                 var gioDaTru = (ngayKhoiHanhConvert - DateTime.Now).TotalSeconds;
                 var seconds = 3600;
