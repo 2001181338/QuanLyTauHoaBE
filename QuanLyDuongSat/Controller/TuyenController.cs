@@ -342,8 +342,10 @@ namespace QuanLyDuongSat.Controller
                 {
                     var chuyen = chuyens.FirstOrDefault(x => x.MaChuyen == chuyenTau.MaChuyen);
                     var sNgayKhoiHanh = chuyenTau?.NgayKhoiHanh.Value.ToString("dd/MM/yyyy") + " " + chuyen.GioKhoiHanh;
-                    var ngayKhoiHanh = DateTime.Parse(sNgayKhoiHanh);
-                    var gioConvertSeconds = (ngayKhoiHanh - DateTime.Now).TotalSeconds;
+                    var date = new DateTime(chuyenTau.NgayKhoiHanh.Value.Year, chuyenTau.NgayKhoiHanh.Value.Month, chuyenTau.NgayKhoiHanh.Value.Day);
+                    var hours = TimeSpan.Parse(chuyen.GioKhoiHanh);
+                    var ngayKhoiHanhParse = date + hours;
+                    var gioConvertSeconds = (ngayKhoiHanhParse - DateTime.Now).TotalSeconds;
 
                     var chuyenTauModel = new ChuyenTauModel()
                     {
@@ -363,7 +365,7 @@ namespace QuanLyDuongSat.Controller
                         }).OrderBy(z => z.TenToa).ToList(),
                         HetHan = gioConvertSeconds < 86400,
                         TrangThai = (TrangThaiChuyenTauEnum) chuyenTau.TrangThai,
-                        NgayGioKhoiHanh = ngayKhoiHanh
+                        NgayGioKhoiHanh = sNgayKhoiHanh
                     };
 
                     listChuyenTau.Add(chuyenTauModel);

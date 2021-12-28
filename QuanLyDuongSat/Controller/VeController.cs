@@ -74,7 +74,10 @@ namespace QuanLyDuongSat.Controller
                     };
                 }
 
-                var ngayKhoiHanh = DateTime.Parse(chuyenTau.NgayKhoiHanh.Value.ToString("dd/MM/yyyy") + " " + chuyen.GioKhoiHanh);
+                var date = new DateTime(chuyenTau.NgayKhoiHanh.Value.Year, chuyenTau.NgayKhoiHanh.Value.Month, chuyenTau.NgayKhoiHanh.Value.Day);
+                var hours = TimeSpan.Parse(chuyen.GioKhoiHanh);
+                var ngayKhoiHanhParse = date + hours;
+                var ngayKhoiHanh = ngayKhoiHanhParse;
                 var gioConvertSeconds = (ngayKhoiHanh - DateTime.Now).TotalSeconds;
                 if (gioConvertSeconds < 86400)
                 {
@@ -254,8 +257,12 @@ namespace QuanLyDuongSat.Controller
                 var chuyenTau = db.ChuyenTaus.FirstOrDefault(x => x.MaChuyenTau == loaiVe.MaChuyenTau);
                 var chuyen = db.Chuyens.FirstOrDefault(x => x.MaChuyen == chuyenTau.MaChuyen);
 
-                var sNgayKhoiHanh = chuyenTau.NgayKhoiHanh.Value.ToString("dd/MM/yyyy") + " " + chuyen.GioKhoiHanh;
-                var ngayKhoiHanhConvert = DateTime.Parse(sNgayKhoiHanh);
+                var sNgayKhoiHanh = chuyenTau?.NgayKhoiHanh.Value.ToString("dd/MM/yyyy") + " " + chuyen.GioKhoiHanh;
+                var date = new DateTime(chuyenTau.NgayKhoiHanh.Value.Year, chuyenTau.NgayKhoiHanh.Value.Month, chuyenTau.NgayKhoiHanh.Value.Day);
+                var hours = TimeSpan.Parse(chuyen.GioKhoiHanh);
+                var ngayKhoiHanhParse = date + hours;
+
+                var ngayKhoiHanhConvert = ngayKhoiHanhParse;
                 var gioDaTru = (ngayKhoiHanhConvert - DateTime.Now).TotalSeconds;
                 var seconds = 3600;
 
@@ -348,7 +355,10 @@ namespace QuanLyDuongSat.Controller
                 var chuyen = db.Chuyens.FirstOrDefault(x => x.MaChuyen == chuyenTau.MaChuyen);
 
                 var sNgayKhoiHanh = chuyenTau?.NgayKhoiHanh.Value.ToString("dd/MM/yyyy") + " " + chuyen.GioKhoiHanh;
-                var ngayKhoiHanhConvert = DateTime.Parse(sNgayKhoiHanh);
+                var date = new DateTime(chuyenTau.NgayKhoiHanh.Value.Year, chuyenTau.NgayKhoiHanh.Value.Month, chuyenTau.NgayKhoiHanh.Value.Day);
+                var hours = TimeSpan.Parse(chuyen.GioKhoiHanh);
+                var ngayKhoiHanhParse = date + hours;
+                var ngayKhoiHanhConvert = ngayKhoiHanhParse;
                 var gioDaTru = (ngayKhoiHanhConvert - DateTime.Now).TotalSeconds;
                 var seconds = 3600;
 
@@ -562,8 +572,11 @@ namespace QuanLyDuongSat.Controller
                 var chuyenTau = db.ChuyenTaus.FirstOrDefault(x => x.MaChuyenTau == loaiVe.MaChuyenTau);
                 var chuyen = db.Chuyens.FirstOrDefault(x => x.MaChuyen == chuyenTau.MaChuyen);
 
-                var sNgayKhoiHanh = chuyenTau.NgayKhoiHanh.Value.ToString("dd/MM/yyyy") + " " + chuyen.GioKhoiHanh;
-                var ngayKhoiHanhConvert = DateTime.Parse(sNgayKhoiHanh);
+                var sNgayKhoiHanh = chuyenTau?.NgayKhoiHanh.Value.ToString("dd/MM/yyyy") + " " + chuyen.GioKhoiHanh;
+                var date = new DateTime(chuyenTau.NgayKhoiHanh.Value.Year, chuyenTau.NgayKhoiHanh.Value.Month, chuyenTau.NgayKhoiHanh.Value.Day);
+                var hours = TimeSpan.Parse(chuyen.GioKhoiHanh);
+                var ngayKhoiHanhParse = date + hours;
+                var ngayKhoiHanhConvert = ngayKhoiHanhParse;
                 var gioDaTru = (ngayKhoiHanhConvert - DateTime.Now).TotalSeconds;
                 var seconds = 3600;
 
