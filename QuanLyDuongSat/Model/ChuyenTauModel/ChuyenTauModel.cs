@@ -42,6 +42,7 @@ namespace QuanLyDuongSat.Model.ChuyenTauModel
         public int MaTau { get; set; }
         public int SoLuongToa { get; set; }
         public TrangThaiChuyenTauEnum TrangThaiTau { get; set; }
+        public int MaTuyen { get; set; }
     }
 
     public class ChuyenTauThemModel

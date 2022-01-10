@@ -37,7 +37,8 @@ namespace QuanLyDuongSat.Controller
                                      MaTau = tau.MaTau,
                                      MaGaDi = gaDi.MaGa,
                                      MaGaDen = gaDen.MaGa,
-                                     TrangThaiTau = (TrangThaiChuyenTauEnum) chuyenTau.TrangThai
+                                     TrangThaiTau = (TrangThaiChuyenTauEnum)chuyenTau.TrangThai,
+                                     MaTuyen = tuyen.MaTuyen
                                  };
 
                 var lstChuyenTau = chuyenTaus.ToList();
@@ -45,6 +46,9 @@ namespace QuanLyDuongSat.Controller
                 var ves = db.Ves.ToList();
                 var toas = db.Toas.ToList();
                 var ghes = db.Ghes.ToList();
+                var tuyens = db.Tuyens.ToList();
+                var chuyens = db.Chuyens.ToList();
+                var chuyenTauAll = db.ChuyenTaus.ToList();
 
                 foreach (var chuyenTau in lstChuyenTau)
                 {
@@ -77,6 +81,51 @@ namespace QuanLyDuongSat.Controller
                     if (veTemps.Any())
                     {
                         chuyenTau.SoGheDaDat = veTemps.Count();
+                    }
+                    var tuyen = tuyens.FirstOrDefault(x => x.MaTuyen == chuyenTau.MaTuyen);
+
+                    if (tuyen != null)
+                    {
+                        //Kiểm tra tuyến cha
+                        if (tuyen.TuyenCha != null)
+                        {
+                            var chuyenCha = chuyens.Where(x => x.MaTuyen == tuyen.TuyenCha).ToList();
+                            if (chuyenCha.Any())
+                            {
+                                var chuyenTauCha = chuyenTauAll.FirstOrDefault(x => chuyenCha.Any(y => y.MaChuyen == x.MaChuyen) && x.MaTau == chuyenTau.MaTau);
+                                if (chuyenTauCha != null)
+                                {
+                                    var loaiVesCha = loaiVes.Where(x => chuyenTauCha.MaChuyenTau == x.MaChuyenTau).ToList();
+                                    var veChas = ves.Where(x => loaiVesCha.Any(y => y.MaLoaiVe == x.MaLoaiVe) && (x.TrangThai == (int)TrangThaiVeEnum.DaThanhToan || x.TrangThai == (int)TrangThaiVeEnum.ChuaThanhToan)).ToList();
+                                    if (veChas.Any())
+                                    {
+                                        chuyenTau.SoGheDaDat += veChas.Count;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            //Kiểm tra tuyến con
+                            var tuyenCon = tuyens.FirstOrDefault(x => x.TuyenCha == tuyen.MaTuyen);
+                            if (tuyenCon != null)
+                            {
+                                var chuyenCons = chuyens.Where(x => x.MaTuyen == tuyenCon.MaTuyen).ToList();
+                                if (chuyenCons.Any())
+                                {
+                                    var chuyenTauCon = chuyenTauAll.FirstOrDefault(x => chuyenCons.Any(y => y.MaChuyen == x.MaChuyen) && x.MaTau == chuyenTau.MaTau);
+                                    if (chuyenTauCon != null)
+                                    {
+                                        var loaiVeTauCon = loaiVes.Where(x => x.MaChuyenTau == chuyenTauCon.MaChuyenTau).ToList();
+                                        var veCons = ves.Where(x => loaiVeTauCon.Any(y => y.MaLoaiVe == x.MaLoaiVe) && (x.TrangThai == (int)TrangThaiVeEnum.DaThanhToan || x.TrangThai == (int)TrangThaiVeEnum.ChuaThanhToan)).ToList();
+                                        if (veCons.Any())
+                                        {
+                                            chuyenTau.SoGheDaDat += veCons.Count;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -243,5 +292,5 @@ namespace QuanLyDuongSat.Controller
                 };
             }
         }
-    }   
+    }
 }

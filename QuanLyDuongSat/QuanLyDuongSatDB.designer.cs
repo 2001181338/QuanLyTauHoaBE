@@ -72,7 +72,7 @@ namespace QuanLyDuongSat
     #endregion
 		
 		public QuanLyDuongSatDBDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyTauHoaConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyTauHoaConnectionString2"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -766,6 +766,10 @@ namespace QuanLyDuongSat
 		
 		private EntityRef<Chuyen> _Chuyen;
 		
+		private EntityRef<QuanTri> _QuanTri;
+		
+		private EntityRef<QuanTri> _QuanTri1;
+		
 		private EntityRef<Tau> _Tau;
 		
     #region Extensibility Method Definitions
@@ -796,6 +800,8 @@ namespace QuanLyDuongSat
 		{
 			this._LoaiVes = new EntitySet<LoaiVe>(new Action<LoaiVe>(this.attach_LoaiVes), new Action<LoaiVe>(this.detach_LoaiVes));
 			this._Chuyen = default(EntityRef<Chuyen>);
+			this._QuanTri = default(EntityRef<QuanTri>);
+			this._QuanTri1 = default(EntityRef<QuanTri>);
 			this._Tau = default(EntityRef<Tau>);
 			OnCreated();
 		}
@@ -899,6 +905,10 @@ namespace QuanLyDuongSat
 			{
 				if ((this._CreatedByUser != value))
 				{
+					if (this._QuanTri1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnCreatedByUserChanging(value);
 					this.SendPropertyChanging();
 					this._CreatedByUser = value;
@@ -919,6 +929,10 @@ namespace QuanLyDuongSat
 			{
 				if ((this._UpdatedByUser != value))
 				{
+					if (this._QuanTri.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnUpdatedByUserChanging(value);
 					this.SendPropertyChanging();
 					this._UpdatedByUser = value;
@@ -1031,6 +1045,74 @@ namespace QuanLyDuongSat
 						this._MaChuyen = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Chuyen");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="QuanTri_ChuyenTau", Storage="_QuanTri", ThisKey="UpdatedByUser", OtherKey="TaiKhoan", IsForeignKey=true)]
+		public QuanTri QuanTri
+		{
+			get
+			{
+				return this._QuanTri.Entity;
+			}
+			set
+			{
+				QuanTri previousValue = this._QuanTri.Entity;
+				if (((previousValue != value) 
+							|| (this._QuanTri.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._QuanTri.Entity = null;
+						previousValue.ChuyenTaus.Remove(this);
+					}
+					this._QuanTri.Entity = value;
+					if ((value != null))
+					{
+						value.ChuyenTaus.Add(this);
+						this._UpdatedByUser = value.TaiKhoan;
+					}
+					else
+					{
+						this._UpdatedByUser = default(string);
+					}
+					this.SendPropertyChanged("QuanTri");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="QuanTri_ChuyenTau1", Storage="_QuanTri1", ThisKey="CreatedByUser", OtherKey="TaiKhoan", IsForeignKey=true)]
+		public QuanTri QuanTri1
+		{
+			get
+			{
+				return this._QuanTri1.Entity;
+			}
+			set
+			{
+				QuanTri previousValue = this._QuanTri1.Entity;
+				if (((previousValue != value) 
+							|| (this._QuanTri1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._QuanTri1.Entity = null;
+						previousValue.ChuyenTaus1.Remove(this);
+					}
+					this._QuanTri1.Entity = value;
+					if ((value != null))
+					{
+						value.ChuyenTaus1.Add(this);
+						this._CreatedByUser = value.TaiKhoan;
+					}
+					else
+					{
+						this._CreatedByUser = default(string);
+					}
+					this.SendPropertyChanged("QuanTri1");
 				}
 			}
 		}
@@ -2023,6 +2105,14 @@ namespace QuanLyDuongSat
 		
 		private System.Nullable<System.DateTime> _NgayLap;
 		
+		private EntitySet<ChuyenTau> _ChuyenTaus;
+		
+		private EntitySet<ChuyenTau> _ChuyenTaus1;
+		
+		private EntitySet<Tuyen> _Tuyens;
+		
+		private EntitySet<Tuyen> _Tuyens1;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2037,6 +2127,10 @@ namespace QuanLyDuongSat
 		
 		public QuanTri()
 		{
+			this._ChuyenTaus = new EntitySet<ChuyenTau>(new Action<ChuyenTau>(this.attach_ChuyenTaus), new Action<ChuyenTau>(this.detach_ChuyenTaus));
+			this._ChuyenTaus1 = new EntitySet<ChuyenTau>(new Action<ChuyenTau>(this.attach_ChuyenTaus1), new Action<ChuyenTau>(this.detach_ChuyenTaus1));
+			this._Tuyens = new EntitySet<Tuyen>(new Action<Tuyen>(this.attach_Tuyens), new Action<Tuyen>(this.detach_Tuyens));
+			this._Tuyens1 = new EntitySet<Tuyen>(new Action<Tuyen>(this.attach_Tuyens1), new Action<Tuyen>(this.detach_Tuyens1));
 			OnCreated();
 		}
 		
@@ -2100,6 +2194,58 @@ namespace QuanLyDuongSat
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="QuanTri_ChuyenTau", Storage="_ChuyenTaus", ThisKey="TaiKhoan", OtherKey="UpdatedByUser")]
+		public EntitySet<ChuyenTau> ChuyenTaus
+		{
+			get
+			{
+				return this._ChuyenTaus;
+			}
+			set
+			{
+				this._ChuyenTaus.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="QuanTri_ChuyenTau1", Storage="_ChuyenTaus1", ThisKey="TaiKhoan", OtherKey="CreatedByUser")]
+		public EntitySet<ChuyenTau> ChuyenTaus1
+		{
+			get
+			{
+				return this._ChuyenTaus1;
+			}
+			set
+			{
+				this._ChuyenTaus1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="QuanTri_Tuyen", Storage="_Tuyens", ThisKey="TaiKhoan", OtherKey="CreatedByUser")]
+		public EntitySet<Tuyen> Tuyens
+		{
+			get
+			{
+				return this._Tuyens;
+			}
+			set
+			{
+				this._Tuyens.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="QuanTri_Tuyen1", Storage="_Tuyens1", ThisKey="TaiKhoan", OtherKey="UpdatedByUser")]
+		public EntitySet<Tuyen> Tuyens1
+		{
+			get
+			{
+				return this._Tuyens1;
+			}
+			set
+			{
+				this._Tuyens1.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2118,6 +2264,54 @@ namespace QuanLyDuongSat
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_ChuyenTaus(ChuyenTau entity)
+		{
+			this.SendPropertyChanging();
+			entity.QuanTri = this;
+		}
+		
+		private void detach_ChuyenTaus(ChuyenTau entity)
+		{
+			this.SendPropertyChanging();
+			entity.QuanTri = null;
+		}
+		
+		private void attach_ChuyenTaus1(ChuyenTau entity)
+		{
+			this.SendPropertyChanging();
+			entity.QuanTri1 = this;
+		}
+		
+		private void detach_ChuyenTaus1(ChuyenTau entity)
+		{
+			this.SendPropertyChanging();
+			entity.QuanTri1 = null;
+		}
+		
+		private void attach_Tuyens(Tuyen entity)
+		{
+			this.SendPropertyChanging();
+			entity.QuanTri = this;
+		}
+		
+		private void detach_Tuyens(Tuyen entity)
+		{
+			this.SendPropertyChanging();
+			entity.QuanTri = null;
+		}
+		
+		private void attach_Tuyens1(Tuyen entity)
+		{
+			this.SendPropertyChanging();
+			entity.QuanTri1 = this;
+		}
+		
+		private void detach_Tuyens1(Tuyen entity)
+		{
+			this.SendPropertyChanging();
+			entity.QuanTri1 = null;
 		}
 	}
 	
@@ -2634,6 +2828,10 @@ namespace QuanLyDuongSat
 		
 		private EntityRef<Ga> _Ga1;
 		
+		private EntityRef<QuanTri> _QuanTri;
+		
+		private EntityRef<QuanTri> _QuanTri1;
+		
 		private EntityRef<Tuyen> _Tuyen1;
 		
     #region Extensibility Method Definitions
@@ -2664,6 +2862,8 @@ namespace QuanLyDuongSat
 			this._Tuyens = new EntitySet<Tuyen>(new Action<Tuyen>(this.attach_Tuyens), new Action<Tuyen>(this.detach_Tuyens));
 			this._Ga = default(EntityRef<Ga>);
 			this._Ga1 = default(EntityRef<Ga>);
+			this._QuanTri = default(EntityRef<QuanTri>);
+			this._QuanTri1 = default(EntityRef<QuanTri>);
 			this._Tuyen1 = default(EntityRef<Tuyen>);
 			OnCreated();
 		}
@@ -2811,6 +3011,10 @@ namespace QuanLyDuongSat
 			{
 				if ((this._CreatedByUser != value))
 				{
+					if (this._QuanTri.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnCreatedByUserChanging(value);
 					this.SendPropertyChanging();
 					this._CreatedByUser = value;
@@ -2831,6 +3035,10 @@ namespace QuanLyDuongSat
 			{
 				if ((this._UpdatedByUser != value))
 				{
+					if (this._QuanTri1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnUpdatedByUserChanging(value);
 					this.SendPropertyChanging();
 					this._UpdatedByUser = value;
@@ -2930,6 +3138,74 @@ namespace QuanLyDuongSat
 						this._GaDen = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Ga1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="QuanTri_Tuyen", Storage="_QuanTri", ThisKey="CreatedByUser", OtherKey="TaiKhoan", IsForeignKey=true)]
+		public QuanTri QuanTri
+		{
+			get
+			{
+				return this._QuanTri.Entity;
+			}
+			set
+			{
+				QuanTri previousValue = this._QuanTri.Entity;
+				if (((previousValue != value) 
+							|| (this._QuanTri.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._QuanTri.Entity = null;
+						previousValue.Tuyens.Remove(this);
+					}
+					this._QuanTri.Entity = value;
+					if ((value != null))
+					{
+						value.Tuyens.Add(this);
+						this._CreatedByUser = value.TaiKhoan;
+					}
+					else
+					{
+						this._CreatedByUser = default(string);
+					}
+					this.SendPropertyChanged("QuanTri");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="QuanTri_Tuyen1", Storage="_QuanTri1", ThisKey="UpdatedByUser", OtherKey="TaiKhoan", IsForeignKey=true)]
+		public QuanTri QuanTri1
+		{
+			get
+			{
+				return this._QuanTri1.Entity;
+			}
+			set
+			{
+				QuanTri previousValue = this._QuanTri1.Entity;
+				if (((previousValue != value) 
+							|| (this._QuanTri1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._QuanTri1.Entity = null;
+						previousValue.Tuyens1.Remove(this);
+					}
+					this._QuanTri1.Entity = value;
+					if ((value != null))
+					{
+						value.Tuyens1.Add(this);
+						this._UpdatedByUser = value.TaiKhoan;
+					}
+					else
+					{
+						this._UpdatedByUser = default(string);
+					}
+					this.SendPropertyChanged("QuanTri1");
 				}
 			}
 		}

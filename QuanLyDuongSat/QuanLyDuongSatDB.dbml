@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyTauHoa" Class="QuanLyDuongSatDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-H5BQAG2\SQLEXPRESS;Initial Catalog=QuanLyTauHoa;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyTauHoaConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-7AEI48K\SQLEXPRESS;Initial Catalog=QuanLyTauHoa;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyTauHoaConnectionString2" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Chuyen" Member="Chuyens">
     <Type Name="Chuyen">
       <Column Name="MaChuyen" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -37,6 +37,8 @@
       <Column Name="TrangThai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="ChuyenTau_LoaiVe" Member="LoaiVes" ThisKey="MaChuyenTau" OtherKey="MaChuyenTau" Type="LoaiVe" />
       <Association Name="Chuyen_ChuyenTau" Member="Chuyen" ThisKey="MaChuyen" OtherKey="MaChuyen" Type="Chuyen" IsForeignKey="true" />
+      <Association Name="QuanTri_ChuyenTau" Member="QuanTri" ThisKey="UpdatedByUser" OtherKey="TaiKhoan" Type="QuanTri" IsForeignKey="true" />
+      <Association Name="QuanTri_ChuyenTau1" Member="QuanTri1" ThisKey="CreatedByUser" OtherKey="TaiKhoan" Type="QuanTri" IsForeignKey="true" />
       <Association Name="Tau_ChuyenTau" Member="Tau" ThisKey="MaTau" OtherKey="MaTau" Type="Tau" IsForeignKey="true" />
     </Type>
   </Table>
@@ -92,6 +94,10 @@
       <Column Name="TaiKhoan" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="MatKhau" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="NgayLap" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="QuanTri_ChuyenTau" Member="ChuyenTaus" ThisKey="TaiKhoan" OtherKey="UpdatedByUser" Type="ChuyenTau" />
+      <Association Name="QuanTri_ChuyenTau1" Member="ChuyenTaus1" ThisKey="TaiKhoan" OtherKey="CreatedByUser" Type="ChuyenTau" />
+      <Association Name="QuanTri_Tuyen" Member="Tuyens" ThisKey="TaiKhoan" OtherKey="CreatedByUser" Type="Tuyen" />
+      <Association Name="QuanTri_Tuyen1" Member="Tuyens1" ThisKey="TaiKhoan" OtherKey="UpdatedByUser" Type="Tuyen" />
     </Type>
   </Table>
   <Table Name="dbo.Tau" Member="Taus">
@@ -134,6 +140,8 @@
       <Association Name="Tuyen_Tuyen" Member="Tuyens" ThisKey="MaTuyen" OtherKey="TuyenCha" Type="Tuyen" />
       <Association Name="Ga_Tuyen" Member="Ga" ThisKey="GaDi" OtherKey="MaGa" Type="Ga" IsForeignKey="true" />
       <Association Name="Ga_Tuyen1" Member="Ga1" ThisKey="GaDen" OtherKey="MaGa" Type="Ga" IsForeignKey="true" />
+      <Association Name="QuanTri_Tuyen" Member="QuanTri" ThisKey="CreatedByUser" OtherKey="TaiKhoan" Type="QuanTri" IsForeignKey="true" />
+      <Association Name="QuanTri_Tuyen1" Member="QuanTri1" ThisKey="UpdatedByUser" OtherKey="TaiKhoan" Type="QuanTri" IsForeignKey="true" />
       <Association Name="Tuyen_Tuyen" Member="Tuyen1" ThisKey="TuyenCha" OtherKey="MaTuyen" Type="Tuyen" IsForeignKey="true" />
     </Type>
   </Table>

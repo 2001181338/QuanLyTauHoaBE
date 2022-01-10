@@ -125,6 +125,16 @@ namespace QuanLyDuongSat.Controller
                     };
                 }
 
+                var tuyenChaDaCoTuyenCon= allTuyen.FirstOrDefault(x => x.MaTuyen == model.MaTuyenCha);
+                if (model.MaTuyenCha != null && tuyenChaDaCoTuyenCon != null && tuyenChaDaCoTuyenCon.TuyenCha != null)
+                {
+                    return new ResponseModel()
+                    {
+                        Status = false,
+                        Message = "Tuyến cha đang chọn đã có tuyến cha rồi"
+                    };
+                }
+
                 var newTuyen = new Tuyen()
                 {
                     GaDi = model.MaGaDi,
@@ -220,6 +230,16 @@ namespace QuanLyDuongSat.Controller
                     {
                         Status = false,
                         Message = "Không được trùng tuyến cha"
+                    };
+                }
+
+                var tuyenChaDaCoTuyenCon = allTuyen.FirstOrDefault(x => x.MaTuyen == model.MaTuyenCha);
+                if (model.MaTuyenCha != null && tuyenChaDaCoTuyenCon != null && tuyenChaDaCoTuyenCon.TuyenCha != null)
+                {
+                    return new ResponseModel()
+                    {
+                        Status = false,
+                        Message = "Tuyến cha đang chọn đã có tuyến cha rồi"
                     };
                 }
 
